@@ -1,6 +1,6 @@
 //
-//  MyPlayProjectViewController.m
-//  MyPlayProject
+//  main.m
+//  GaugesDashboard
 //
 //  Created by Alison Clarke on 27/08/2014.
 //
@@ -19,24 +19,13 @@
 //  limitations under the License.
 //
 
-#import "MyPlayProjectViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface MyPlayProjectViewController ()
+#import "GaugesDashboardAppDelegate.h"
 
-@end
-
-@implementation MyPlayProjectViewController
-
-- (void)viewDidLoad
+int main(int argc, char * argv[])
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+  @autoreleasepool {
+      return UIApplicationMain(argc, argv, nil, NSStringFromClass([GaugesDashboardAppDelegate class]));
+  }
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-@end

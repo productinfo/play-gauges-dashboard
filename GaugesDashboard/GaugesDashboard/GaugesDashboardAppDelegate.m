@@ -1,6 +1,6 @@
 //
-//  MyPlayProjectAppDelegate.m
-//  MyPlayProject
+//  GaugesDashboardAppDelegate.m
+//  GaugesDashboard
 //
 //  Created by Alison Clarke on 27/08/2014.
 //
@@ -19,9 +19,9 @@
 //  limitations under the License.
 //
 
-#import "MyPlayProjectAppDelegate.h"
+#import "GaugesDashboardAppDelegate.h"
 
-@implementation MyPlayProjectAppDelegate
+@implementation GaugesDashboardAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

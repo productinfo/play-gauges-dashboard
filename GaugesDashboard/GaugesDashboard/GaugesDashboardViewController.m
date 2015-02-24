@@ -1,6 +1,6 @@
 //
-//  MyPlayProjectViewController.h
-//  MyPlayProject
+//  GaugesDashboardViewController.m
+//  GaugesDashboard
 //
 //  Created by Alison Clarke on 27/08/2014.
 //
@@ -19,9 +19,24 @@
 //  limitations under the License.
 //
 
-@import UIKit;
-#import "ShinobiPlayUtils/SPUGalleryManagedViewController.h"
+#import "GaugesDashboardViewController.h"
 
-@interface MyPlayProjectViewController : SPUGalleryManagedViewController
+@interface GaugesDashboardViewController ()
+
+@end
+
+@implementation GaugesDashboardViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 @end

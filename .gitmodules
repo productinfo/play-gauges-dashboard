@@ -1,4 +1,4 @@
-[submodule "MyPlayProject/ShinobiPlayUtils"]
-	path = MyPlayProject/ShinobiPlayUtils
+[submodule "GaugesDashboard/ShinobiPlayUtils"]
+	path = GaugesDashboard/ShinobiPlayUtils
 	url = git@bitbucket.org:shinobicontrols/shinobi-play-utils.git
 	branch = master

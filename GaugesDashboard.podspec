@@ -5,25 +5,25 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = "MyPlayProject"
+  s.name             = "GaugesDashboard"
   s.version          = '0.1.0'
-  s.summary          = "<Summary>"
+  s.summary          = "A gauges dashboard demo"
   s.description      = <<-DESC
-                       <Description>
+                       A gauges dashboard for the featured gallery
                        DESC
   s.homepage         = "http://www.shinobicontrols.com"
   s.license          = 'Apache License, Version 2.0'
-  s.author           = { "Alison Clarke" => "aclarke@shinobicontrols.com" }
-  s.source           = { :git => "https://bitbucket.org/shinobicontrols/play-<repo-name>.git", 
+  s.author           = { "Alison Clarke" => "aclarke@scottlogic.co.uk" }
+  s.source           = { :git => "https://bitbucket.org/shinobicontrols/play-gauges-dashboard.git", 
                          :tag => s.version.to_s,
                          :submodules => true 
                        }
   s.social_media_url = 'https://twitter.com/shinobicontrols'
   s.platform     = :ios, '7.0'
   s.requires_arc = true
-  s.source_files = 'MyPlayProject/MyPlayProject/**/*.{h,m}'
+  s.source_files = 'GaugesDashboard/GaugesDashboard/**/*.{h,m}'
   s.dependency 'ShinobiPlayUtils'
-  s.resources = ['MyPlayProject/**/*.storyboard', 'MyPlayProject/**/*.xib', 'MyPlayProject/**/*.xcassets']
-  s.frameworks = 'QuartzCore', 'Shinobi<Charts/Grids/Essentials/Gauges/Forms>'
+  s.resources = ['GaugesDashboard/**/*.storyboard', 'GaugesDashboard/**/*.xib', 'GaugesDashboard/**/*.xcassets']
+  s.frameworks = 'QuartzCore', 'ShinobiGauges'
   s.xcconfig     = { 'FRAMEWORK_SEARCH_PATHS' => '"$(DEVELOPER_FRAMEWORKS_DIR)" "$(PROJECT_DIR)/../"' }
 end

@@ -1,6 +1,6 @@
 //
-//  main.m
-//  MyPlayProject
+//  GaugesDashboardAppDelegate.h
+//  GaugesDashboard
 //
 //  Created by Alison Clarke on 27/08/2014.
 //
@@ -19,13 +19,10 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
-#import "MyPlayProjectAppDelegate.h"
+@interface GaugesDashboardAppDelegate : UIResponder <UIApplicationDelegate>
 
-int main(int argc, char * argv[])
-{
-  @autoreleasepool {
-      return UIApplicationMain(argc, argv, nil, NSStringFromClass([MyPlayProjectAppDelegate class]));
-  }
-}
+@property (strong, nonatomic) UIWindow *window;
+
+@end
