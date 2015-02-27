@@ -6,7 +6,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = "GaugesDashboard"
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = "A gauges dashboard demo"
   s.description      = <<-DESC
                        A gauges dashboard for the featured gallery
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source_files = 'GaugesDashboard/GaugesDashboard/**/*.{h,m}'
   s.dependency 'ShinobiPlayUtils'
-  s.resources = ['GaugesDashboard/**/*.storyboard', 'GaugesDashboard/**/*.xib', 'GaugesDashboard/**/*.xcassets']
+  s.resources = ['GaugesDashboard/**/*.storyboard', 'GaugesDashboard/**/*.xib', 'GaugesDashboard/**/*.xcassets', 'GaugesDashboard/**/RoomData.plist']
   s.frameworks = 'QuartzCore', 'ShinobiGauges'
   s.xcconfig     = { 'FRAMEWORK_SEARCH_PATHS' => '"$(DEVELOPER_FRAMEWORKS_DIR)" "$(PROJECT_DIR)/../"' }
 end

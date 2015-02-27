@@ -1,8 +1,8 @@
 //
-//  GaugesDashboardViewController.h
+//  GaugesDashboardColor.h
 //  GaugesDashboard
 //
-//  Created by Alison Clarke on 27/08/2014.
+//  Created by Daniel Allsop on 25/02/2015.
 //
 //  Copyright 2014 Scott Logic
 //
@@ -19,15 +19,15 @@
 //  limitations under the License.
 //
 
-@import UIKit;
-#import "ShinobiPlayUtils/SPUGalleryManagedViewController.h"
-#import <ShinobiGauges/ShinobiGauges.h>
+#import <UIKit/UIKit.h>
 
-@interface GaugesDashboardViewController : SPUGalleryManagedViewController
+@interface UIColor (GDColor)
 
-@property IBOutlet UILabel *timeLabel;
-@property IBOutlet UILabel *maxLabel;
-@property IBOutlet UILabel *currentValueLabel;
-@property IBOutlet UILabel *currentLabel;
++ (UIColor *)customGreyBlueColor;
++ (UIColor *)customOrangeColor;
++ (UIColor *)customDarkBlueColor;
++ (UIColor *)customBlueColor;
++ (UIColor *)customDarkGrayColor;
++ (UIColor *)customLightGrayColor;
 
 @end

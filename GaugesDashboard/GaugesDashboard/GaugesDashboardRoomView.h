@@ -1,8 +1,8 @@
 //
-//  GaugesDashboardViewController.h
+//  GaugesDashboardRoomView.h
 //  GaugesDashboard
 //
-//  Created by Alison Clarke on 27/08/2014.
+//  Created by Daniel Allsop on 24/02/2015.
 //
 //  Copyright 2014 Scott Logic
 //
@@ -19,15 +19,15 @@
 //  limitations under the License.
 //
 
-@import UIKit;
-#import "ShinobiPlayUtils/SPUGalleryManagedViewController.h"
-#import <ShinobiGauges/ShinobiGauges.h>
+#import <UIKit/UIKit.h>
+#import "GaugesDashboardRoomInfo.h"
 
-@interface GaugesDashboardViewController : SPUGalleryManagedViewController
+@interface GaugesDashboardRoomView : UIView
 
-@property IBOutlet UILabel *timeLabel;
-@property IBOutlet UILabel *maxLabel;
-@property IBOutlet UILabel *currentValueLabel;
-@property IBOutlet UILabel *currentLabel;
+- (instancetype)initWithFrame:(CGRect)frame roomData:(NSDictionary*)roomData;
+- (void)setSelected;
+- (void)clearSelected;
+
+@property (strong, nonatomic) GaugesDashboardRoomInfo *roomData;
 
 @end
