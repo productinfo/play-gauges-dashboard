@@ -55,20 +55,6 @@
   return [NSString stringWithFormat:@"%ld", lroundf(self.totalPowerUsage)];
 }
 
-- (NSMutableAttributedString *)totalPowerUsageFormattedAsAttributedString {
-  NSMutableAttributedString *kwhLabelValueAttributedString = [[NSMutableAttributedString alloc] initWithString:[self totalPowerUsageFormattedAsString]];
-  NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor gaugesDashboardOrangeColor],
-                                    NSFontAttributeName: [UIFont shinobiFontOfSize:35]};
-  [kwhLabelValueAttributedString setAttributes:attributes range:NSMakeRange(0, kwhLabelValueAttributedString.length)];
-  
-  NSMutableAttributedString *kwhLabelAttributedString = [[NSMutableAttributedString alloc] initWithString:@"kWh"];
-  attributes = @{ NSForegroundColorAttributeName: [UIColor gaugesDashboardOrangeColor],
-                                      NSFontAttributeName: [UIFont shinobiFontOfSize:24]};
-  [kwhLabelAttributedString setAttributes:attributes range:NSMakeRange(0, kwhLabelAttributedString.length)];
-  [kwhLabelValueAttributedString appendAttributedString:kwhLabelAttributedString];
-  return kwhLabelValueAttributedString;
-}
-
 - (NSString *)powerUsageRateFormattedAsString {
   return [NSString stringWithFormat:@"$%0.2f/h", self.powerUsageRate];
 }

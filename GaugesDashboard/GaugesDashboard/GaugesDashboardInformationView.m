@@ -87,7 +87,19 @@
 - (void)updateInfo:(GaugesDashboardRoomInfo *)roomInfo {
   self.roomNameLabel.text = [roomInfo.roomName capitalizedString];
   self.lightsStateLabel.text = [roomInfo lightsFormattedAsString];
-  self.kwhLabel.attributedText = [roomInfo totalPowerUsageFormattedAsAttributedString];
+  
+  NSMutableAttributedString *kwhLabelValueAttributedString = [[NSMutableAttributedString alloc] initWithString:[roomInfo totalPowerUsageFormattedAsString]];
+  NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor gaugesDashboardOrangeColor],
+                                 NSFontAttributeName: [UIFont shinobiFontOfSize:35]};
+  [kwhLabelValueAttributedString setAttributes:attributes range:NSMakeRange(0, kwhLabelValueAttributedString.length)];
+    
+  NSMutableAttributedString *kwhLabelAttributedString = [[NSMutableAttributedString alloc] initWithString:@"kWh"];
+    attributes = @{ NSForegroundColorAttributeName: [UIColor gaugesDashboardOrangeColor],
+                    NSFontAttributeName: [UIFont shinobiFontOfSize:24]};
+  [kwhLabelAttributedString setAttributes:attributes range:NSMakeRange(0, kwhLabelAttributedString.length)];
+  [kwhLabelValueAttributedString appendAttributedString:kwhLabelAttributedString];
+  self.kwhLabel.attributedText = kwhLabelValueAttributedString;
+  
   [self.kwhLabel sizeToFit];
   
   self.rateLabel.text = [roomInfo powerUsageRateFormattedAsString];

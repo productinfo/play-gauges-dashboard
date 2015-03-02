@@ -19,7 +19,7 @@
 //  limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface GaugesDashboardRoomInfo : NSObject
 
@@ -34,7 +34,7 @@
 - (NSString *)temperatureFormattedAsString;
 - (NSString *)maxTemperatureFormattedAsString;
 - (NSString *)lightsFormattedAsString;
-- (NSMutableAttributedString *)totalPowerUsageFormattedAsAttributedString;
+- (NSString *)totalPowerUsageFormattedAsString;
 - (NSString *)powerUsageRateFormattedAsString;
 - (NSNumber *)percentageTemperature;
 

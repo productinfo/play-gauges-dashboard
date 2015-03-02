@@ -35,13 +35,7 @@
 @property (assign, nonatomic) NSUInteger selectedRoom;
 
 @property (strong, nonatomic) GaugesDashboardInformationView *informationView;
-@property (strong, nonatomic) GaugesDashboardRoomView *loungeView;
-@property (strong, nonatomic) GaugesDashboardRoomView *kitchenView;
-@property (strong, nonatomic) GaugesDashboardRoomView *bathroomView;
-@property (strong, nonatomic) GaugesDashboardRoomView *bed1View;
-@property (strong, nonatomic) GaugesDashboardRoomView *bed2View;
-@property (strong, nonatomic) GaugesDashboardRoomView *bed3View;
-@property (strong, nonatomic) NSArray *roomArray;
+@property (strong, nonatomic) NSMutableArray *roomArray;
 @property (strong, nonatomic) SGaugeRadial *gauge;
 
 @end
@@ -91,12 +85,6 @@
     [roomView removeFromSuperview];
   }
   self.informationView = nil;
-  self.loungeView = nil;
-  self.kitchenView = nil;
-  self.bathroomView = nil;
-  self.bed1View = nil;
-  self.bed2View = nil;;
-  self.bed3View = nil;
   self.roomArray = nil;
   
   // Throw away the gauge
@@ -121,58 +109,33 @@
 - (void)setupView {
   self.informationView = [[GaugesDashboardInformationView alloc]initWithFrame:CGRectMake(90, 90, 390, 233)];
   [self.view addSubview:self.informationView];
-  
+
   CGFloat padding = 20;
   
-  BOOL isBigView = (CGRectGetHeight(self.view.frame) > 700);
-  CGFloat size = isBigView ? 110 : 80;
+  // Adjust the layout depending on if the app is being run as a standalone demo or as
+  // part of the shinobi play app
+  CGFloat paddingFromTop = (CGRectGetHeight(self.view.frame) / 768) * 20;
+  CGFloat size = (CGRectGetHeight(self.view.frame) / 768) * 110;
   
-  CGFloat column1 = CGRectGetMaxX(self.timeLabel.frame) - (size * 3) - (padding * 2);
-  CGFloat column2 = column1 + size + padding;
-  CGFloat column3 = column2 + size + padding;
-  
-  CGFloat row1 = isBigView ? 0.40 : 0.43;
-  row1 = (self.view.frame.size.height * row1) - (size + (padding / 2));
-  CGFloat row2 = row1 + size + padding;
-  
-  self.loungeView = [[GaugesDashboardRoomView alloc] initWithFrame:CGRectMake(column1, row1, size, size)
-                                                          roomData:self.roomData[0]];
-  [self.view addSubview:self.loungeView];
-  [self addTapGestureRecogniserToRoomView:self.loungeView];
-  
-  self.kitchenView = [[GaugesDashboardRoomView alloc] initWithFrame:CGRectMake(column2, row1, size, size)
-                                                           roomData:self.roomData[1]];
-  [self.view addSubview:self.kitchenView];
-  [self addTapGestureRecogniserToRoomView:self.kitchenView];
-  
-  self.bathroomView = [[GaugesDashboardRoomView  alloc]initWithFrame:CGRectMake(column3, row1, size, size)
-                                                            roomData:self.roomData[2]];
-  [self.view addSubview:self.bathroomView];
-  [self addTapGestureRecogniserToRoomView:self.bathroomView];
+  self.roomArray = [NSMutableArray new];
+  for (int i = 0; i < self.roomData.count; ++i) {
+    CGFloat roomIndex = 2 - (i % 3);
     
-  self.bed1View = [[GaugesDashboardRoomView alloc] initWithFrame:CGRectMake(column1, row2, size, size)
-                                                        roomData:self.roomData[3]];
-  [self.view addSubview:self.bed1View];
-  [self addTapGestureRecogniserToRoomView:self.bed1View];
-
-  self.bed2View = [[GaugesDashboardRoomView  alloc]initWithFrame:CGRectMake(column2, row2, size, size)
-                                                        roomData:self.roomData[4]];
-  [self.view addSubview:self.bed2View];
-  [self addTapGestureRecogniserToRoomView:self.bed2View];
-  
-  self.bed3View = [[GaugesDashboardRoomView alloc] initWithFrame:CGRectMake(column3, row2, size, size)
-                                                        roomData:self.roomData[5]];
-  [self.view addSubview:self.bed3View];
-  [self addTapGestureRecogniserToRoomView:self.bed3View];
-  
-  self.roomArray = [NSArray arrayWithObjects:self.loungeView, self.kitchenView,
-                        self.bathroomView, self.bed1View, self.bed2View, self.bed3View, nil];
+    GaugesDashboardRoomView *roomView = [[GaugesDashboardRoomView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.timeLabel.frame) - (size * (roomIndex + 1)) - (padding * roomIndex),
+                                                                                                  CGRectGetMaxY(self.timeLabel.frame) + paddingFromTop + ((i / 3) * (size + padding)),
+                                                                                                  size,
+                                                                                                  size)
+                                                                              roomData:self.roomData[i]];
+    [self.view addSubview:roomView];
+    [self addTapGestureRecogniserToRoomView:roomView];
+    [self.roomArray addObject:roomView];
+  }
   
   [self createGauge];
   
   [self updateClock];
   
-  [self setRoomSelected: (self.selectedRoom) ? self.roomArray[self.selectedRoom] : self.kitchenView];
+  [self setRoomSelected: (self.selectedRoom) ? self.roomArray[self.selectedRoom] : self.roomArray[1]];
   
   [self.view bringSubviewToFront:self.maxLabel];
   [self.view bringSubviewToFront:self.currentValueLabel];
@@ -210,7 +173,7 @@
   self.gauge.style.innerBackgroundColor = [UIColor gaugesDashboardBlueColor];
   self.gauge.needle.hidden = YES;
   
-  // Set a bevel of width 20 to inset the gague so that it doesnot get cropped at the edges
+  // Add a clear bevel it inset the gauge so that it does not get cropped at the edges
   self.gauge.style.bevelPrimaryColor = [UIColor clearColor];
   self.gauge.style.bevelSecondaryColor = [UIColor clearColor];
   self.gauge.style.bevelWidth = 20;
@@ -249,33 +212,37 @@
 - (void)updateGauge:(NSNumber*)percentageTemperature {
   // Create animation effect starting from 0.001 and increaing in increments of 3 every 0.01 seconds
   NSDictionary *temperatureDictionary = @{@"current": @0.001, @"max": percentageTemperature};
-  [self performSelector:@selector(animateGaugevalue:)
+  [self performSelector:@selector(animateGaugeValue:)
              withObject:temperatureDictionary
              afterDelay:0];
 }
 
-- (void)animateGaugevalue:(NSDictionary *)state {
+- (void)animateGaugeValue:(NSDictionary *)state {
   NSNumber *current = state[@"current"];
   NSNumber *max = state[@"max"];
   
   if ([current floatValue] >= [max floatValue]) {
-    // Check that we haven't undershot our target temperature since we increment the
-    // temperature upwards from 0.001 in increments of 4.
+    // If we have overshot our max temperature then set that displayed value to be equal to
+    // our max temperature and return ending the recursion.
     self.gauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:@0
                                                                       maximum:max
                                                                         color:[UIColor gaugesDashboardOrangeColor]]];
     return;
   }
   
-  // Increment the value shown by the gauge in increments of 4 every 0.01 second
+  // Increment the value shown on the gauge's qualitative indicator
   self.gauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:@0
                                                                     maximum:current
                                                                       color:[UIColor gaugesDashboardOrangeColor]]];
-  // Temporarily persist our current progress animating the gague value
-  NSDictionary *temperatureDictionary = @{@"current": @(current.doubleValue + 4), @"max": max};
   
-  // Call the current method we are in recursively untill we get to our target temperature
-  [self performSelector:_cmd withObject:temperatureDictionary afterDelay:0.01];
+  // Recursively increment the temperature upwards from 0.001 in increments of 4.
+  NSDictionary *temperatureDictionary = @{@"current": @(current.doubleValue + 4), @"max": max};
+  double delayInSeconds = 0.01;
+  dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+  dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    [self animateGaugeValue:temperatureDictionary];
+  });
+
 }
 
 @end

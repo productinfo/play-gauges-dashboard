@@ -19,7 +19,7 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import "GaugesDashboardRoomInfo.h"
 
 @interface GaugesDashboardRoomView : UIView
