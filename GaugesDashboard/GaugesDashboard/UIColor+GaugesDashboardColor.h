@@ -21,13 +21,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (GDColor)
+@interface UIColor (GaugesDashboardColor)
 
-+ (UIColor *)customGreyBlueColor;
-+ (UIColor *)customOrangeColor;
-+ (UIColor *)customDarkBlueColor;
-+ (UIColor *)customBlueColor;
-+ (UIColor *)customDarkGrayColor;
-+ (UIColor *)customLightGrayColor;
++ (UIColor *)gaugesDashboardGrayBlueColor;
++ (UIColor *)gaugesDashboardOrangeColor;
++ (UIColor *)gaugesDashboardDarkBlueColor;
++ (UIColor *)gaugesDashboardBlueColor;
++ (UIColor *)gaugesDashboardDarkGrayColor;
++ (UIColor *)gaugesDashboardLightGrayColor;
 
 @end

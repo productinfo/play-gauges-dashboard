@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		542596331A9CC2D7000F1D73 /* GaugesDashboardInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 542596321A9CC2D7000F1D73 /* GaugesDashboardInformationView.m */; };
 		542D052A1A9DE916003F3769 /* ShinobiGauges.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542D05291A9DE916003F3769 /* ShinobiGauges.framework */; };
-		542D052D1A9DED29003F3769 /* UIColor+GDColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 542D052C1A9DED29003F3769 /* UIColor+GDColor.m */; };
-		542D05321A9DF3C7003F3769 /* RoomData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5425962F1A9CC213000F1D73 /* RoomData.plist */; };
+		542D052D1A9DED29003F3769 /* UIColor+GaugesDashboardColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 542D052C1A9DED29003F3769 /* UIColor+GaugesDashboardColor.m */; };
+		542D05321A9DF3C7003F3769 /* GaugesDashboardRoomData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5425962F1A9CC213000F1D73 /* GaugesDashboardRoomData.plist */; };
 		542D05351A9E12C3003F3769 /* GaugesDashboardRoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 542D05341A9E12C3003F3769 /* GaugesDashboardRoomView.m */; };
 		542D05381A9E1402003F3769 /* GaugesDashboardRoomInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 542D05371A9E1402003F3769 /* GaugesDashboardRoomInfo.m */; };
 		68171BE119ADDBC5000AFEEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68171BE019ADDBC5000AFEEB /* Foundation.framework */; };
@@ -63,12 +63,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5425962F1A9CC213000F1D73 /* RoomData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RoomData.plist; sourceTree = "<group>"; };
+		5425962F1A9CC213000F1D73 /* GaugesDashboardRoomData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GaugesDashboardRoomData.plist; sourceTree = "<group>"; };
 		542596311A9CC2D7000F1D73 /* GaugesDashboardInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugesDashboardInformationView.h; sourceTree = "<group>"; };
 		542596321A9CC2D7000F1D73 /* GaugesDashboardInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaugesDashboardInformationView.m; sourceTree = "<group>"; };
 		542D05291A9DE916003F3769 /* ShinobiGauges.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShinobiGauges.framework; path = ../../../../../Library/ShinobiGauges/ShinobiGauges.framework; sourceTree = "<group>"; };
-		542D052B1A9DED29003F3769 /* UIColor+GDColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GDColor.h"; sourceTree = "<group>"; };
-		542D052C1A9DED29003F3769 /* UIColor+GDColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GDColor.m"; sourceTree = "<group>"; };
+		542D052B1A9DED29003F3769 /* UIColor+GaugesDashboardColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GaugesDashboardColor.h"; sourceTree = "<group>"; };
+		542D052C1A9DED29003F3769 /* UIColor+GaugesDashboardColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GaugesDashboardColor.m"; sourceTree = "<group>"; };
 		542D05331A9E12C3003F3769 /* GaugesDashboardRoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugesDashboardRoomView.h; sourceTree = "<group>"; };
 		542D05341A9E12C3003F3769 /* GaugesDashboardRoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaugesDashboardRoomView.m; sourceTree = "<group>"; };
 		542D05361A9E1402003F3769 /* GaugesDashboardRoomInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugesDashboardRoomInfo.h; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 		542596351A9CC2ED000F1D73 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				5425962F1A9CC213000F1D73 /* RoomData.plist */,
+				5425962F1A9CC213000F1D73 /* GaugesDashboardRoomData.plist */,
 				542D05361A9E1402003F3769 /* GaugesDashboardRoomInfo.h */,
 				542D05371A9E1402003F3769 /* GaugesDashboardRoomInfo.m */,
 			);
@@ -184,8 +184,8 @@
 				68171BF219ADDBC5000AFEEB /* GaugesDashboard.storyboard */,
 				68171BF519ADDBC5000AFEEB /* GaugesDashboardViewController.h */,
 				68171BF619ADDBC5000AFEEB /* GaugesDashboardViewController.m */,
-				542D052B1A9DED29003F3769 /* UIColor+GDColor.h */,
-				542D052C1A9DED29003F3769 /* UIColor+GDColor.m */,
+				542D052B1A9DED29003F3769 /* UIColor+GaugesDashboardColor.h */,
+				542D052C1A9DED29003F3769 /* UIColor+GaugesDashboardColor.m */,
 				68171BF819ADDBC5000AFEEB /* Images.xcassets */,
 				68171BE719ADDBC5000AFEEB /* Supporting Files */,
 			);
@@ -309,7 +309,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				542D05321A9DF3C7003F3769 /* RoomData.plist in Resources */,
+				542D05321A9DF3C7003F3769 /* GaugesDashboardRoomData.plist in Resources */,
 				68FCB4CD1A6E595300A48C86 /* Roboto-ThinItalic.ttf in Resources */,
 				68FCB4CC1A6E595300A48C86 /* Roboto-Thin.ttf in Resources */,
 				68171BF919ADDBC5000AFEEB /* Images.xcassets in Resources */,
@@ -337,7 +337,7 @@
 			files = (
 				542596331A9CC2D7000F1D73 /* GaugesDashboardInformationView.m in Sources */,
 				68171BF119ADDBC5000AFEEB /* GaugesDashboardAppDelegate.m in Sources */,
-				542D052D1A9DED29003F3769 /* UIColor+GDColor.m in Sources */,
+				542D052D1A9DED29003F3769 /* UIColor+GaugesDashboardColor.m in Sources */,
 				68171BED19ADDBC5000AFEEB /* main.m in Sources */,
 				542D05381A9E1402003F3769 /* GaugesDashboardRoomInfo.m in Sources */,
 				542D05351A9E12C3003F3769 /* GaugesDashboardRoomView.m in Sources */,

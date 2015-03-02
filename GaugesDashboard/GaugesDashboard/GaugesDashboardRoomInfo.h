@@ -26,11 +26,16 @@
 @property (strong, nonatomic) NSString *roomName;
 @property (assign, nonatomic) NSInteger temperature;
 @property (assign, nonatomic) NSInteger maxTemperature;
-@property (strong, nonatomic) NSString *lights;
-@property (strong, nonatomic) NSString *totalPowerUsage;
-@property (strong, nonatomic) NSString *powerUsageRate;
+@property (assign, nonatomic) BOOL lights;
+@property (assign, nonatomic) CGFloat totalPowerUsage;
+@property (assign, nonatomic) CGFloat powerUsageRate;
 
-- (instancetype)initWithKey:(NSString*)roomName andDictionary:(NSDictionary*)roomData;
-- (NSNumber*)percentageTemperature;
+- (instancetype)initWithKey:(NSString *)roomName andDictionary:(NSDictionary *)roomData;
+- (NSString *)temperatureFormattedAsString;
+- (NSString *)maxTemperatureFormattedAsString;
+- (NSString *)lightsFormattedAsString;
+- (NSMutableAttributedString *)totalPowerUsageFormattedAsAttributedString;
+- (NSString *)powerUsageRateFormattedAsString;
+- (NSNumber *)percentageTemperature;
 
 @end

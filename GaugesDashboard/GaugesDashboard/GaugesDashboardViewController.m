@@ -23,7 +23,7 @@
 #import "GaugesDashboardRoomInfo.h"
 #import "GaugesDashboardInformationView.h"
 #import "GaugesDashboardRoomView.h"
-#import "UIColor+GDColor.h"
+#import "UIColor+GaugesDashboardColor.h"
 #import "ShinobiPlayUtils/UIFont+SPUFont.h"
 
 @interface GaugesDashboardViewController ()
@@ -54,17 +54,17 @@
   [self createDataFormatter];
   [self createTimer];
   
-  NSString *path = [[NSBundle mainBundle] pathForResource:@"RoomData" ofType:@"plist"];
+  NSString *path = [[NSBundle mainBundle] pathForResource:@"GaugesDashboardRoomData" ofType:@"plist"];
   if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
     NSMutableArray *roomData = [NSMutableArray new];
     NSDictionary *roomDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
-    for (NSString *key in [NSArray arrayWithObjects:@"lounge", @"kitchen", @"bathroom", @"bed 1", @"bed 2", @"bed 3", nil]) {
+    for (NSString *key in @[@"lounge", @"kitchen", @"bathroom", @"bed 1", @"bed 2", @"bed 3"]) {
       NSDictionary *dictionary = [roomDictionary valueForKey:key];
       GaugesDashboardRoomInfo *roomInfo = [[GaugesDashboardRoomInfo alloc] initWithKey:key andDictionary:dictionary];
       [roomData addObject:roomInfo];
     }
     
-    self.roomData = [NSArray arrayWithArray:roomData];
+    self.roomData = [[NSArray arrayWithArray:roomData] copy];
   }
   
   [self setupView];
@@ -133,6 +133,7 @@
   
   CGFloat row1 = isBigView ? 0.40 : 0.43;
   row1 = (self.view.frame.size.height * row1) - (size + (padding / 2));
+  CGFloat row2 = row1 + size + padding;
   
   self.loungeView = [[GaugesDashboardRoomView alloc] initWithFrame:CGRectMake(column1, row1, size, size)
                                                           roomData:self.roomData[0]];
@@ -148,9 +149,7 @@
                                                             roomData:self.roomData[2]];
   [self.view addSubview:self.bathroomView];
   [self addTapGestureRecogniserToRoomView:self.bathroomView];
-  
-  CGFloat row2 = row1 + size + padding;
-  
+    
   self.bed1View = [[GaugesDashboardRoomView alloc] initWithFrame:CGRectMake(column1, row2, size, size)
                                                         roomData:self.roomData[3]];
   [self.view addSubview:self.bed1View];
@@ -195,7 +194,7 @@
   
   self.gauge.clipsToBounds = NO;
   
-  // Set the angle
+  // Set the angle to start at the bottom of the gauge and go round to 1 o'clock
   self.gauge.arcAngleStart = - M_PI_2 * 2;
   self.gauge.arcAngleEnd = M_PI_2 * 0.425;
   
@@ -207,9 +206,11 @@
   self.gauge.style.showGlassEffect = NO;
   self.gauge.style.tickBaselineColor = [UIColor whiteColor];
   self.gauge.style.tickBaselineWidth = 16;
-  self.gauge.style.outerBackgroundColor = [UIColor customBlueColor];
-  self.gauge.style.innerBackgroundColor = [UIColor customBlueColor];
+  self.gauge.style.outerBackgroundColor = [UIColor gaugesDashboardBlueColor];
+  self.gauge.style.innerBackgroundColor = [UIColor gaugesDashboardBlueColor];
   self.gauge.needle.hidden = YES;
+  
+  // Set a bevel of width 20 to inset the gague so that it doesnot get cropped at the edges
   self.gauge.style.bevelPrimaryColor = [UIColor clearColor];
   self.gauge.style.bevelSecondaryColor = [UIColor clearColor];
   self.gauge.style.bevelWidth = 20;
@@ -240,36 +241,40 @@
 - (void)setRoomSelected:(GaugesDashboardRoomView*)selectedRoom {
   [selectedRoom setSelected];
   [self.informationView updateInfo:selectedRoom.roomData];
-  self.currentValueLabel.text = [NSString stringWithFormat:@"%zd", selectedRoom.roomData.temperature];
-  self.maxLabel.text = [NSString stringWithFormat:@"max %zd", selectedRoom.roomData.maxTemperature];
+  self.currentValueLabel.text = [selectedRoom.roomData temperatureFormattedAsString];
+  self.maxLabel.text = [selectedRoom.roomData maxTemperatureFormattedAsString];
   [self updateGauge:[selectedRoom.roomData percentageTemperature]];
 }
 
 - (void)updateGauge:(NSNumber*)percentageTemperature {
   // Create animation effect starting from 0.001 and increaing in increments of 3 every 0.01 seconds
   NSDictionary *temperatureDictionary = @{@"current": @0.001, @"max": percentageTemperature};
-  [self performSelector:@selector(animation:)
+  [self performSelector:@selector(animateGaugevalue:)
              withObject:temperatureDictionary
              afterDelay:0];
 }
 
-- (void)animation:(NSDictionary *)state {
+- (void)animateGaugevalue:(NSDictionary *)state {
   NSNumber *current = state[@"current"];
   NSNumber *max = state[@"max"];
   
   if ([current floatValue] >= [max floatValue]) {
-    // Here we make sure he haven't undershot our target temperature since we increment
-    // the temperature upwards from 0.001 in increments of 3.
+    // Check that we haven't undershot our target temperature since we increment the
+    // temperature upwards from 0.001 in increments of 4.
     self.gauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:@0
                                                                       maximum:max
-                                                                        color:[UIColor customOrangeColor]]];
+                                                                        color:[UIColor gaugesDashboardOrangeColor]]];
     return;
   }
   
+  // Increment the value shown by the gauge in increments of 4 every 0.01 second
   self.gauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:@0
                                                                     maximum:current
-                                                                      color:[UIColor customOrangeColor]]];
-  NSDictionary *temperatureDictionary = @{ @"current": @(current.doubleValue + 4), @"max": max };
+                                                                      color:[UIColor gaugesDashboardOrangeColor]]];
+  // Temporarily persist our current progress animating the gague value
+  NSDictionary *temperatureDictionary = @{@"current": @(current.doubleValue + 4), @"max": max};
+  
+  // Call the current method we are in recursively untill we get to our target temperature
   [self performSelector:_cmd withObject:temperatureDictionary afterDelay:0.01];
 }
 

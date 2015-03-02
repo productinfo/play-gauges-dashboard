@@ -20,33 +20,61 @@
 //
 
 #import "GaugesDashboardRoomInfo.h"
-
-@interface GaugesDashboardRoomInfo ()
-
-@end
+#import "UIColor+GaugesDashboardColor.h"
+#import "ShinobiPlayUtils/UIFont+SPUFont.h"
 
 @implementation GaugesDashboardRoomInfo
 
-- (instancetype)initWithKey:(NSString*)roomName andDictionary:(NSDictionary*)roomData {
+- (instancetype)initWithKey:(NSString *)roomName andDictionary:(NSDictionary *)roomData {
   self = [super init];
   if (self) {
     self.roomName = roomName;
     self.temperature = [roomData[@"temperature"] integerValue];
     self.maxTemperature = [roomData[@"maxTemperature"] integerValue];
-    self.lights = ([roomData[@"lights"] boolValue]) ? @"On" : @"Off";
+    self.lights = [roomData[@"lights"] boolValue];
     
-    NSInteger totalPowerUsage = [roomData[@"totalPowerUsage"] floatValue];
-    self.totalPowerUsage = [NSString stringWithFormat:@"%zdkwh", totalPowerUsage];
-    
-    double powerUsageRate = [roomData[@"totalPowerUsage"] floatValue] * 0.0425;
-    self.powerUsageRate  =[NSString stringWithFormat:@"$%0.2f/h", powerUsageRate];
+    self.totalPowerUsage = [roomData[@"totalPowerUsage"] floatValue];
+    self.powerUsageRate = [roomData[@"totalPowerUsage"] floatValue] * 0.0425;
   }
   return self;
 }
 
-- (NSNumber*)percentageTemperature {
-  return [NSNumber numberWithFloat:([[NSNumber numberWithInteger:self.temperature] floatValue] /
-                                    [[NSNumber numberWithInteger:self.maxTemperature] floatValue]) * 100];
+- (NSString *)temperatureFormattedAsString {
+  return [NSString stringWithFormat:@"%zd", self.temperature];
+}
+
+- (NSString *)maxTemperatureFormattedAsString {
+  return [NSString stringWithFormat:@"max %zd", self.maxTemperature];
+}
+
+- (NSString *)lightsFormattedAsString {
+  return (self.lights) ? @"On" : @"Off";
+}
+
+- (NSString *)totalPowerUsageFormattedAsString {
+  return [NSString stringWithFormat:@"%ld", lroundf(self.totalPowerUsage)];
+}
+
+- (NSMutableAttributedString *)totalPowerUsageFormattedAsAttributedString {
+  NSMutableAttributedString *kwhLabelValueAttributedString = [[NSMutableAttributedString alloc] initWithString:[self totalPowerUsageFormattedAsString]];
+  NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor gaugesDashboardOrangeColor],
+                                    NSFontAttributeName: [UIFont shinobiFontOfSize:35]};
+  [kwhLabelValueAttributedString setAttributes:attributes range:NSMakeRange(0, kwhLabelValueAttributedString.length)];
+  
+  NSMutableAttributedString *kwhLabelAttributedString = [[NSMutableAttributedString alloc] initWithString:@"kWh"];
+  attributes = @{ NSForegroundColorAttributeName: [UIColor gaugesDashboardOrangeColor],
+                                      NSFontAttributeName: [UIFont shinobiFontOfSize:24]};
+  [kwhLabelAttributedString setAttributes:attributes range:NSMakeRange(0, kwhLabelAttributedString.length)];
+  [kwhLabelValueAttributedString appendAttributedString:kwhLabelAttributedString];
+  return kwhLabelValueAttributedString;
+}
+
+- (NSString *)powerUsageRateFormattedAsString {
+  return [NSString stringWithFormat:@"$%0.2f/h", self.powerUsageRate];
+}
+
+- (NSNumber *)percentageTemperature {
+  return @(((CGFloat)self.temperature / (CGFloat)self.maxTemperature) * 100);
 }
 
 @end

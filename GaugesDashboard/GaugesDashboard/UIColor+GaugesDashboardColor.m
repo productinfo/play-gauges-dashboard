@@ -19,31 +19,31 @@
 //  limitations under the License.
 //
 
-#import "UIColor+GDColor.h"
+#import "UIColor+GaugesDashboardColor.h"
 
-@implementation UIColor (GDColor)
+@implementation UIColor (GaugesDashboardColor)
 
-+ (UIColor *)customGreyBlueColor {
++ (UIColor *)gaugesDashboardGrayBlueColor {
   return [UIColor colorWithRed:75.0f/255 green:119.0f/255 blue:133.0f/255 alpha:1];
 }
 
-+ (UIColor *)customOrangeColor {
++ (UIColor *)gaugesDashboardOrangeColor {
   return [UIColor colorWithRed:255.0f/255 green:145.0f/255 blue:0.0f/255 alpha:1];
 }
 
-+ (UIColor *)customDarkBlueColor {
++ (UIColor *)gaugesDashboardDarkBlueColor {
   return [UIColor colorWithRed:35.0f/255 green:128.0f/255 blue:166.0f/255 alpha:1];
 }
 
-+ (UIColor *)customBlueColor {
++ (UIColor *)gaugesDashboardBlueColor {
   return [UIColor colorWithRed:44.0f/255 green:156.0f/255 blue:190.0f/255 alpha:1];
 }
 
-+ (UIColor *)customDarkGrayColor {
++ (UIColor *)gaugesDashboardDarkGrayColor {
   return [UIColor colorWithRed:87.0f/255 green:87.0f/255 blue:87.0f/255 alpha:1];
 }
 
-+ (UIColor *)customLightGrayColor {
++ (UIColor *)gaugesDashboardLightGrayColor {
   return [UIColor colorWithRed:192.0f/255 green:192.0f/255 blue:192.0f/255 alpha:1];
 }
 

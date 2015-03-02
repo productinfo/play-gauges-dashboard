@@ -24,7 +24,7 @@
 
 @interface GaugesDashboardRoomView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame roomData:(NSDictionary*)roomData;
+- (instancetype)initWithFrame:(CGRect)frame roomData:(NSDictionary *)roomData;
 - (void)setSelected;
 - (void)clearSelected;
 

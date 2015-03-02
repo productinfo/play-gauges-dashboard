@@ -20,7 +20,7 @@
 //
 
 #import "GaugesDashboardRoomView.h"
-#import "UIColor+GDColor.h"
+#import "UIColor+GaugesDashboardColor.h"
 #import "ShinobiPlayUtils/UIFont+SPUFont.h"
 
 @interface GaugesDashboardRoomView ()
@@ -32,13 +32,13 @@
 
 @implementation GaugesDashboardRoomView
 
-- (instancetype)initWithFrame:(CGRect)frame roomData:(GaugesDashboardRoomInfo*)roomData {
+- (instancetype)initWithFrame:(CGRect)frame roomData:(GaugesDashboardRoomInfo *)roomData {
   self = [super initWithFrame:frame];
   if (self) {
     self.roomData = roomData;
     
-    self.backgroundColor = [UIColor customGreyBlueColor];
-    self.layer.borderColor = [UIColor customOrangeColor].CGColor;
+    self.backgroundColor = [UIColor gaugesDashboardGrayBlueColor];
+    self.layer.borderColor = [UIColor gaugesDashboardOrangeColor].CGColor;
     
     BOOL isBigView = (CGRectGetHeight(frame) > 90);
     CGFloat roomNameLabelFontSize = isBigView ? 20 : 16;
@@ -49,7 +49,9 @@
                                                                    CGRectGetHeight(frame) * 0.08,
                                                                    CGRectGetWidth(frame),
                                                                    CGRectGetHeight(frame) * 0.2)];
-    [self createUILabel:self.roomNameLabel textColor:[UIColor whiteColor] font: [UIFont shinobiFontOfSize:roomNameLabelFontSize] text:self.roomData.roomName];
+    [self styleUILabel:self.roomNameLabel textColor:[UIColor whiteColor]
+                  font:[UIFont shinobiFontOfSize:roomNameLabelFontSize]
+                  text:self.roomData.roomName];
     [self addSubview:self.roomNameLabel];
     
     // Position and size temperatureLabel to fill bottom 80% of uiview
@@ -57,13 +59,16 @@
                                                                       CGRectGetHeight(frame) * 0.2,
                                                                       CGRectGetWidth(frame),
                                                                       CGRectGetHeight(frame) * 0.8)];
-    [self createUILabel:self.temperatureLabel textColor:[UIColor customOrangeColor] font:[UIFont lightShinobiFontOfSize:temperatureLabelFontSize] text:[NSString stringWithFormat:@"%zd", self.roomData.temperature]];
+    [self styleUILabel:self.temperatureLabel textColor:[UIColor gaugesDashboardOrangeColor]
+                  font:[UIFont lightShinobiFontOfSize:temperatureLabelFontSize]
+                  text:[NSString stringWithFormat:@"%zd", self.roomData.temperature]];
     [self addSubview:self.temperatureLabel];
   }
   return self;
 }
 
-- (void)createUILabel:(UILabel*)label textColor:(UIColor*)textColor font:(UIFont*)font text:(NSString*)text{
+- (void)styleUILabel:(UILabel *)label textColor:(UIColor *)textColor
+                 font:(UIFont *)font text:(NSString *)text {
   label.textAlignment = NSTextAlignmentCenter;
   label.textColor = textColor;
   label.font = font;  
@@ -71,7 +76,7 @@
   [self addSubview:label];
 }
 
-- (void)setSelected{
+- (void)setSelected {
   self.layer.borderWidth = 1;
 }
 

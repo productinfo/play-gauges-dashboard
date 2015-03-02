@@ -20,7 +20,7 @@
 //
 
 #import "GaugesDashboardInformationView.h"
-#import "UIColor+GDColor.h"
+#import "UIColor+GaugesDashboardColor.h"
 #import "ShinobiPlayUtils/UIFont+SPUFont.h"
 
 @interface GaugesDashboardInformationView ()
@@ -39,42 +39,44 @@
 - (instancetype)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
-    self.backgroundColor = [UIColor customDarkBlueColor];
+    self.backgroundColor = [UIColor gaugesDashboardDarkBlueColor];
     
     self.roomNameLabel= [[UILabel alloc] initWithFrame:CGRectMake(18, 27, 152, 35)];
-    [self createUILabel:self.roomNameLabel textColor:[UIColor whiteColor]
-                   font:[UIFont fontWithName:@"Roboto-Bold" size:32] text:nil];
+    [self styleUILabel:self.roomNameLabel textColor:[UIColor whiteColor]
+                   font:[UIFont extraBoldShinobiFontOfSize:32] text:nil];
     
     self.lightsLabel= [[UILabel alloc] initWithFrame:CGRectMake(18, 70, 152, 31)];
-    [self createUILabel:self.lightsLabel textColor:[UIColor whiteColor]
+    [self styleUILabel:self.lightsLabel textColor:[UIColor whiteColor]
                    font:[UIFont shinobiFontOfSize:20] text:@"Lights"];
     
     self.lightsStateLabel= [[UILabel alloc] initWithFrame:CGRectMake(18, 86, 152, 70)];
-    [self createUILabel:self.lightsStateLabel textColor:[UIColor customOrangeColor]
+    [self styleUILabel:self.lightsStateLabel textColor:[UIColor gaugesDashboardOrangeColor]
                    font:[UIFont shinobiFontOfSize:36] text:nil];
     
     self.powerUsageLabel= [[UILabel alloc] initWithFrame:CGRectMake(18, 149, 152, 25)];
-    [self createUILabel:self.powerUsageLabel textColor:[UIColor whiteColor]
+    [self styleUILabel:self.powerUsageLabel textColor:[UIColor whiteColor]
                    font:[UIFont shinobiFontOfSize:20] text:@"Power Usage"];
     
     self.kwhLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, 177, 73, 32)];
-    [self createUILabel:self.kwhLabel textColor:[UIColor customOrangeColor]
+    [self styleUILabel:self.kwhLabel textColor:[UIColor gaugesDashboardOrangeColor]
                    font:[UIFont shinobiFontOfSize:20] text:nil];
     
     self.rateLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 192, 80, 21)];
-    [self createUILabel:self.rateLabel textColor:[UIColor lightGrayColor]
-                   font:[UIFont boldShinobiFontOfSize:18] text:nil];;
+    [self styleUILabel:self.rateLabel textColor:[UIColor lightGrayColor]
+                   font:[UIFont extraBoldShinobiFontOfSize:18] text:nil];;
     
-    NSInteger hideView1Size = 100;
-    UIView *hideView1 = [[UIView alloc] initWithFrame:CGRectMake(390 - hideView1Size, 59, hideView1Size, 233 - 59)];
-    hideView1.backgroundColor = [UIColor customBlueColor];
-    [self addSubview:hideView1];
+    // Create a UIView to set the background color to be the same as that of the app background
+    // color in places where we don't want to see the information view background color
+    NSInteger alteranteBackgroundColorViewSize = 100;
+    UIView *alteranteBackgroundColorView = [[UIView alloc] initWithFrame:CGRectMake(390 - alteranteBackgroundColorViewSize, 59, alteranteBackgroundColorViewSize, 233 - 59)];
+    alteranteBackgroundColorView.backgroundColor = [UIColor gaugesDashboardBlueColor];
+    [self addSubview:alteranteBackgroundColorView];
 
   }
   return self;
 }
 
-- (void)createUILabel:(UILabel*)label textColor:(UIColor*)textColor font:(UIFont*)font text:(NSString*)text {
+- (void)styleUILabel:(UILabel *)label textColor:(UIColor *)textColor font:(UIFont *)font text:(NSString *)text {
   label.textAlignment = NSTextAlignmentLeft;
   label.textColor = textColor;
   label.font = font;
@@ -82,24 +84,13 @@
   [self addSubview:label];
 }
 
-- (void)updateInfo:(GaugesDashboardRoomInfo*)roomInfo {
+- (void)updateInfo:(GaugesDashboardRoomInfo *)roomInfo {
   self.roomNameLabel.text = [roomInfo.roomName capitalizedString];
-  self.lightsStateLabel.text = roomInfo.lights;
-  
-  NSDictionary *firstAttributes = @{NSForegroundColorAttributeName: [UIColor customOrangeColor],
-                                    NSFontAttributeName: [UIFont shinobiFontOfSize:35]};
-  NSDictionary *secondAttributes = @{ NSForegroundColorAttributeName: [UIColor customOrangeColor],
-                                      NSFontAttributeName: [UIFont shinobiFontOfSize:24]};
-  
-  NSString *kwhLabelString = roomInfo.totalPowerUsage;
-  NSRange rangeOfkwhSubstring = [kwhLabelString rangeOfString:@"kwh"];
-  NSMutableAttributedString *kwhLabelAttributedString = [[NSMutableAttributedString alloc] initWithString:kwhLabelString];
-  [kwhLabelAttributedString setAttributes:firstAttributes range:NSMakeRange(0, kwhLabelString.length - rangeOfkwhSubstring.length)];
-  [kwhLabelAttributedString setAttributes:secondAttributes range:rangeOfkwhSubstring];
-  self.kwhLabel.attributedText = kwhLabelAttributedString;
+  self.lightsStateLabel.text = [roomInfo lightsFormattedAsString];
+  self.kwhLabel.attributedText = [roomInfo totalPowerUsageFormattedAsAttributedString];
   [self.kwhLabel sizeToFit];
   
-  self.rateLabel.text = roomInfo.powerUsageRate;
+  self.rateLabel.text = [roomInfo powerUsageRateFormattedAsString];
   [self.rateLabel sizeToFit];
   
   [self.rateLabel setFrame:CGRectMake(CGRectGetMaxX(self.kwhLabel.frame) + 9,
