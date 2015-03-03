@@ -24,7 +24,7 @@
 
 @interface GaugesDashboardRoomView : UIView
 
-- (void)setData:(NSDictionary *)roomData;
+- (void)setDataAndStyleRoomView:(GaugesDashboardRoomInfo *)roomData;
 - (void)setSelected;
 - (void)clearSelected;
 

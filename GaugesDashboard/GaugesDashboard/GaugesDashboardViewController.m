@@ -112,7 +112,7 @@
   self.roomArray = @[self.loungeView, self.kitchenView, self.bathroomView, self.bed1View, self.bed2View, self.bed3View];
   for (int i = 0; i < self.roomArray.count; ++i) {
     GaugesDashboardRoomView *roomView = self.roomArray[i];
-    [roomView setData:self.roomData[i]];
+    [roomView setDataAndStyleRoomView:self.roomData[i]];
   }
   
   [self createGauge];

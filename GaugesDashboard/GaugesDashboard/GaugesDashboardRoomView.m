@@ -25,20 +25,30 @@
 
 @implementation GaugesDashboardRoomView
 
-- (void)setData:(GaugesDashboardRoomInfo *)roomData {
+- (void)setDataAndStyleRoomView:(GaugesDashboardRoomInfo *)roomData {
+  self.roomData = roomData;
+  
   self.backgroundColor = [UIColor gaugesDashboardGrayBlueColor];
   self.layer.borderColor = [UIColor gaugesDashboardOrangeColor].CGColor;
   
-  self.roomData = roomData;
-  self.roomNameLabel.text = self.roomData.roomName;
-  self.temperatureLabel.text = [NSString stringWithFormat:@"%zd", self.roomData.temperature];
+  [self styleUILabel:self.roomNameLabel textColor:[UIColor whiteColor] font:[UIFont shinobiFontOfSize:16] text:self.roomData.roomName];
+  [self styleUILabel:self.temperatureLabel textColor:[UIColor gaugesDashboardOrangeColor] font:[UIFont lightShinobiFontOfSize:40] text:[NSString stringWithFormat:@"%zd", self.roomData.temperature]];
+}
+
+- (void)styleRoomView {  
+  self.backgroundColor = [UIColor gaugesDashboardGrayBlueColor];
+  self.layer.borderColor = [UIColor gaugesDashboardOrangeColor].CGColor;
+  
+  [self styleUILabel:self.roomNameLabel textColor:[UIColor whiteColor] font:[UIFont shinobiFontOfSize:16] text:self.roomData.roomName];
+  [self styleUILabel:self.roomNameLabel textColor:[UIColor gaugesDashboardOrangeColor] font:[UIFont lightShinobiFontOfSize:40] text:[NSString stringWithFormat:@"%zd", self.roomData.temperature]];
 }
 
 - (void)styleUILabel:(UILabel *)label textColor:(UIColor *)textColor
-                 font:(UIFont *)font{
+                font:(UIFont *)font text:(NSString*)text{
   label.textAlignment = NSTextAlignmentCenter;
   label.textColor = textColor;
   label.font = font;
+  label.text = text;
   [self addSubview:label];
 }
 

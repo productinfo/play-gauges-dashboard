@@ -242,7 +242,6 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="allRoomViews" destination="XIT-Ls-K92" id="5VC-EH-ApM"/>
                         <outlet property="bathroomView" destination="Lg8-Ks-vCz" id="83V-CR-NtA"/>
                         <outlet property="bed1View" destination="UsA-I0-Z0H" id="bhQ-0I-qM2"/>
                         <outlet property="bed2View" destination="Ljy-To-Ycm" id="PjF-Hw-kts"/>
