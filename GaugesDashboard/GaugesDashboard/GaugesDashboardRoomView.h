@@ -1,8 +1,8 @@
 //
-//  main.m
+//  GaugesDashboardRoomView.h
 //  GaugesDashboard
 //
-//  Created by Alison Clarke on 27/08/2014.
+//  Created by Daniel Allsop on 24/02/2015.
 //
 //  Copyright 2014 Scott Logic
 //
@@ -20,12 +20,16 @@
 //
 
 @import UIKit;
+#import "GaugesDashboardRoomInfo.h"
 
-#import "GaugesDashboardAppDelegate.h"
+@interface GaugesDashboardRoomView : UIView
 
-int main(int argc, char * argv[])
-{
-  @autoreleasepool {
-      return UIApplicationMain(argc, argv, nil, NSStringFromClass([GaugesDashboardAppDelegate class]));
-  }
-}
+- (void)setDataAndStyleRoomView:(GaugesDashboardRoomInfo *)roomData;
+- (void)setSelected;
+- (void)clearSelected;
+
+@property (strong, nonatomic) IBOutlet UILabel *roomNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *temperatureLabel;
+@property (strong, nonatomic) GaugesDashboardRoomInfo *roomData;
+
+@end

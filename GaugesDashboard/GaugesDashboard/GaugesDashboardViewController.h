@@ -21,7 +21,21 @@
 
 @import UIKit;
 #import "ShinobiPlayUtils/SPUGalleryManagedViewController.h"
+#import <ShinobiGauges/ShinobiGauges.h>
 
 @interface GaugesDashboardViewController : SPUGalleryManagedViewController
+
+@property IBOutlet UILabel *timeLabel;
+@property IBOutlet UILabel *maxLabel;
+@property IBOutlet UILabel *currentValueLabel;
+@property IBOutlet UILabel *currentLabel;
+@property IBOutlet UIView *loungeView;
+@property IBOutlet UIView *kitchenView;
+@property IBOutlet UIView *bathroomView;
+@property IBOutlet UIView *bed1View;
+@property IBOutlet UIView *bed2View;
+@property IBOutlet UIView *bed3View;
+
+- (IBAction)pickRoom:(UITapGestureRecognizer *)sender;
 
 @end

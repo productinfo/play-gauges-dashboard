@@ -1,8 +1,8 @@
 //
-//  main.m
+//  GaugesDashboardColor.h
 //  GaugesDashboard
 //
-//  Created by Alison Clarke on 27/08/2014.
+//  Created by Daniel Allsop on 25/02/2015.
 //
 //  Copyright 2014 Scott Logic
 //
@@ -21,11 +21,13 @@
 
 @import UIKit;
 
-#import "GaugesDashboardAppDelegate.h"
+@interface UIColor (GaugesDashboardColor)
 
-int main(int argc, char * argv[])
-{
-  @autoreleasepool {
-      return UIApplicationMain(argc, argv, nil, NSStringFromClass([GaugesDashboardAppDelegate class]));
-  }
-}
++ (UIColor *)gaugesDashboardGrayBlueColor;
++ (UIColor *)gaugesDashboardOrangeColor;
++ (UIColor *)gaugesDashboardDarkBlueColor;
++ (UIColor *)gaugesDashboardBlueColor;
++ (UIColor *)gaugesDashboardDarkGrayColor;
++ (UIColor *)gaugesDashboardLightGrayColor;
+
+@end

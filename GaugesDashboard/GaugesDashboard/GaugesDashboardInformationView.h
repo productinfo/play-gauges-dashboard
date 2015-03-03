@@ -1,8 +1,8 @@
 //
-//  main.m
+//  GaugesDashboardInformationView.h
 //  GaugesDashboard
 //
-//  Created by Alison Clarke on 27/08/2014.
+//  Created by Daniel Allsop on 24/02/2015.
 //
 //  Copyright 2014 Scott Logic
 //
@@ -20,12 +20,11 @@
 //
 
 @import UIKit;
+#import "GaugesDashboardRoomInfo.h"
 
-#import "GaugesDashboardAppDelegate.h"
+@interface GaugesDashboardInformationView : UIView
 
-int main(int argc, char * argv[])
-{
-  @autoreleasepool {
-      return UIApplicationMain(argc, argv, nil, NSStringFromClass([GaugesDashboardAppDelegate class]));
-  }
-}
+- (instancetype)initWithFrame:(CGRect)frame;
+- (void)updateInfo:(GaugesDashboardRoomInfo *)roomInfo;
+
+@end

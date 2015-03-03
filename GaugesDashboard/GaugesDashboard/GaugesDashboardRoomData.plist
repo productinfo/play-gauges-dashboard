@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>lounge</key>
+	<dict>
+		<key>temperature</key>
+		<integer>22</integer>
+		<key>maxTemperature</key>
+		<integer>26</integer>
+		<key>lights</key>
+		<true/>
+		<key>totalPowerUsage</key>
+		<integer>12</integer>
+	</dict>
+	<key>kitchen</key>
+	<dict>
+		<key>temperature</key>
+		<integer>19</integer>
+		<key>maxTemperature</key>
+		<integer>25</integer>
+		<key>lights</key>
+		<true/>
+		<key>totalPowerUsage</key>
+		<integer>8</integer>
+	</dict>
+	<key>bathroom</key>
+	<dict>
+		<key>temperature</key>
+		<integer>20</integer>
+		<key>maxTemperature</key>
+		<integer>25</integer>
+		<key>lights</key>
+		<true/>
+		<key>totalPowerUsage</key>
+		<integer>3</integer>
+	</dict>
+	<key>bed 1</key>
+	<dict>
+		<key>temperature</key>
+		<integer>18</integer>
+		<key>maxTemperature</key>
+		<integer>30</integer>
+		<key>lights</key>
+		<false/>
+		<key>totalPowerUsage</key>
+		<integer>2</integer>
+	</dict>
+	<key>bed 2</key>
+	<dict>
+		<key>temperature</key>
+		<integer>15</integer>
+		<key>maxTemperature</key>
+		<integer>20</integer>
+		<key>lights</key>
+		<true/>
+		<key>totalPowerUsage</key>
+		<integer>4</integer>
+	</dict>
+	<key>bed 3</key>
+	<dict>
+		<key>temperature</key>
+		<integer>17</integer>
+		<key>maxTemperature</key>
+		<integer>22</integer>
+		<key>lights</key>
+		<false/>
+		<key>totalPowerUsage</key>
+		<integer>6</integer>
+	</dict>
+</dict>
+</plist>
