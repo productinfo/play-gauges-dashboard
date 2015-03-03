@@ -67,13 +67,13 @@
     
     // Create a UIView to set the background color to be the same as that of the app background
     // color in places where we don't want to see the information view background color
-    NSInteger alteranteBackgroundColorViewSize = 100;
-    UIView *alteranteBackgroundColorView = [[UIView alloc] initWithFrame:CGRectMake(390 - alteranteBackgroundColorViewSize,
+    NSInteger alternateBackgroundColorViewSize = 100;
+    UIView *alternateBackgroundColorView = [[UIView alloc] initWithFrame:CGRectMake(390 - alternateBackgroundColorViewSize,
                                                                                     59,
-                                                                                    alteranteBackgroundColorViewSize,
+                                                                                    alternateBackgroundColorViewSize,
                                                                                     233 - 59)];
-    alteranteBackgroundColorView.backgroundColor = [UIColor gaugesDashboardBlueColor];
-    [self addSubview:alteranteBackgroundColorView];
+    alternateBackgroundColorView.backgroundColor = [UIColor gaugesDashboardBlueColor];
+    [self addSubview:alternateBackgroundColorView];
 
   }
   return self;

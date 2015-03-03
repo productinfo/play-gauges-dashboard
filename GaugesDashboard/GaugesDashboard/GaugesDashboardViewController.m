@@ -35,7 +35,7 @@
 @property (assign, nonatomic) NSUInteger selectedRoom;
 
 @property (strong, nonatomic) GaugesDashboardInformationView *informationView;
-@property (strong, nonatomic) NSMutableArray *roomArray;
+@property (strong, nonatomic) NSArray *roomArray;
 @property (strong, nonatomic) SGaugeRadial *gauge;
 
 @end
@@ -57,7 +57,6 @@
       GaugesDashboardRoomInfo *roomInfo = [[GaugesDashboardRoomInfo alloc] initWithKey:key andDictionary:dictionary];
       [roomData addObject:roomInfo];
     }
-    
     self.roomData = [[NSArray arrayWithArray:roomData] copy];
   }
   
@@ -110,14 +109,10 @@
   self.informationView = [[GaugesDashboardInformationView alloc]initWithFrame:CGRectMake(90, 90, 390, 233)];
   [self.view addSubview:self.informationView];
   
-  NSArray *roomViewArray = @[self.loungeView, self.kitchenView, self.bathroomView, self.bed1View, self.bed2View, self.bed3View];
-  self.roomArray = [NSMutableArray new];
-  for (int i = 0; i < self.roomData.count; ++i) {    
-    GaugesDashboardRoomView *roomView = [[GaugesDashboardRoomView alloc] initWithFrame:((UIView *)roomViewArray[i]).frame
-                                                                              roomData:self.roomData[i]];
-    [self.roomView addSubview:roomView];
-    [self addTapGestureRecogniserToRoomView:roomView];
-    [self.roomArray addObject:roomView];
+  self.roomArray = @[self.loungeView, self.kitchenView, self.bathroomView, self.bed1View, self.bed2View, self.bed3View];
+  for (int i = 0; i < self.roomArray.count; ++i) {
+    GaugesDashboardRoomView *roomView = self.roomArray[i];
+    [roomView setData:self.roomData[i]];
   }
   
   [self createGauge];
@@ -129,13 +124,6 @@
   [self.view bringSubviewToFront:self.maxLabel];
   [self.view bringSubviewToFront:self.currentValueLabel];
   [self.view bringSubviewToFront:self.currentLabel];
-}
-
-- (void)addTapGestureRecogniserToRoomView:(GaugesDashboardRoomView *)roomView {
-  UITapGestureRecognizer *roomTapGestureRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                             action:@selector(pickRoom:)];
-  roomTapGestureRecogniser.numberOfTapsRequired = 1;
-  [roomView addGestureRecognizer:roomTapGestureRecogniser];
 }
 
 - (void)createGauge {
@@ -178,10 +166,10 @@
   self.timeLabel.text = [self.dateFormatter stringFromDate:now];
 }
 
-- (void)pickRoom:(UITapGestureRecognizer *)sender {
-  CGPoint location = [sender locationInView:self.view];
+- (IBAction)pickRoom:(UITapGestureRecognizer *)sender {
+  GaugesDashboardRoomView *tappedRoomView = ((GaugesDashboardRoomView *)sender.view);
   for (GaugesDashboardRoomView *roomView in self.roomArray) {
-    if (CGRectContainsPoint(roomView.frame, location)) {
+    if ([tappedRoomView isEqual:roomView]) {
       self.selectedRoom = [self.roomArray indexOfObject:roomView];
       [self setRoomSelected:roomView];
     } else {

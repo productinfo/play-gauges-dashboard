@@ -24,10 +24,12 @@
 
 @interface GaugesDashboardRoomView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame roomData:(NSDictionary *)roomData;
+- (void)setData:(NSDictionary *)roomData;
 - (void)setSelected;
 - (void)clearSelected;
 
+@property (strong, nonatomic) IBOutlet UILabel *roomNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *temperatureLabel;
 @property (strong, nonatomic) GaugesDashboardRoomInfo *roomData;
 
 @end

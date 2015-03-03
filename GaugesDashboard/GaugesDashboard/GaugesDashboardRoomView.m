@@ -23,52 +23,22 @@
 #import "UIColor+GaugesDashboardColor.h"
 #import "ShinobiPlayUtils/UIFont+SPUFont.h"
 
-@interface GaugesDashboardRoomView ()
-
-@property (strong, nonatomic) UILabel *roomNameLabel;
-@property (strong, nonatomic) UILabel *temperatureLabel;
-
-@end
-
 @implementation GaugesDashboardRoomView
 
-- (instancetype)initWithFrame:(CGRect)frame roomData:(GaugesDashboardRoomInfo *)roomData {
-  self = [super initWithFrame:frame];
-  if (self) {
-    self.roomData = roomData;
-    
-    self.backgroundColor = [UIColor gaugesDashboardGrayBlueColor];
-    self.layer.borderColor = [UIColor gaugesDashboardOrangeColor].CGColor;
-        
-    // Position and size roomNameLabel to fill top ~20% of uiview
-    self.roomNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                   CGRectGetHeight(frame) * 0.01,
-                                                                   CGRectGetWidth(frame),
-                                                                   CGRectGetHeight(frame) * 0.3)];
-    [self styleUILabel:self.roomNameLabel textColor:[UIColor whiteColor]
-                  font:[UIFont shinobiFontOfSize:16]
-                  text:self.roomData.roomName];
-    [self addSubview:self.roomNameLabel];
-    
-    // Position and size temperatureLabel to fill bottom 80% of uiview
-    self.temperatureLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                      CGRectGetHeight(frame) * 0.3,
-                                                                      CGRectGetWidth(frame),
-                                                                      CGRectGetHeight(frame) * 0.7)];
-    [self styleUILabel:self.temperatureLabel textColor:[UIColor gaugesDashboardOrangeColor]
-                  font:[UIFont lightShinobiFontOfSize:40]
-                  text:[NSString stringWithFormat:@"%zd", self.roomData.temperature]];
-    [self addSubview:self.temperatureLabel];
-  }
-  return self;
+- (void)setData:(GaugesDashboardRoomInfo *)roomData {
+  self.backgroundColor = [UIColor gaugesDashboardGrayBlueColor];
+  self.layer.borderColor = [UIColor gaugesDashboardOrangeColor].CGColor;
+  
+  self.roomData = roomData;
+  self.roomNameLabel.text = self.roomData.roomName;
+  self.temperatureLabel.text = [NSString stringWithFormat:@"%zd", self.roomData.temperature];
 }
 
 - (void)styleUILabel:(UILabel *)label textColor:(UIColor *)textColor
-                 font:(UIFont *)font text:(NSString *)text {
+                 font:(UIFont *)font{
   label.textAlignment = NSTextAlignmentCenter;
   label.textColor = textColor;
-  label.font = font;  
-  label.text = text;
+  label.font = font;
   [self addSubview:label];
 }
 
