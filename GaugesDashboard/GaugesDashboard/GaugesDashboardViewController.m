@@ -32,7 +32,7 @@
 
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (strong, nonatomic) NSTimer *timer;
-@property (assign, nonatomic) NSUInteger selectedRoom;
+@property (strong, nonatomic) GaugesDashboardRoomView *selectedRoom;
 
 @property (strong, nonatomic) GaugesDashboardInformationView *informationView;
 @property (strong, nonatomic) NSArray *roomArray;
@@ -80,11 +80,7 @@
   
   [self.timer invalidate];
   
-  for (GaugesDashboardRoomView *roomView in self.roomArray) {
-    [roomView removeFromSuperview];
-  }
   self.informationView = nil;
-  self.roomArray = nil;
   
   // Throw away the gauge
   [self.gauge removeFromSuperview];
@@ -119,7 +115,7 @@
   
   [self updateClock];
   
-  [self setRoomSelected: (self.selectedRoom) ? self.roomArray[self.selectedRoom] : self.roomArray[1]];
+  [self setRoomSelected: (self.selectedRoom) ? self.selectedRoom : self.roomArray[1]];
   
   [self.view bringSubviewToFront:self.maxLabel];
   [self.view bringSubviewToFront:self.currentValueLabel];
@@ -170,7 +166,7 @@
   GaugesDashboardRoomView *tappedRoomView = ((GaugesDashboardRoomView *)sender.view);
   for (GaugesDashboardRoomView *roomView in self.roomArray) {
     if ([tappedRoomView isEqual:roomView]) {
-      self.selectedRoom = [self.roomArray indexOfObject:roomView];
+      self.selectedRoom = roomView;
       [self setRoomSelected:roomView];
     } else {
       [roomView clearSelected];
