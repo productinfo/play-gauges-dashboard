@@ -109,24 +109,13 @@
 - (void)setupView {
   self.informationView = [[GaugesDashboardInformationView alloc]initWithFrame:CGRectMake(90, 90, 390, 233)];
   [self.view addSubview:self.informationView];
-
-  CGFloat padding = 20;
   
-  // Adjust the layout depending on if the app is being run as a standalone demo or as
-  // part of the shinobi play app
-  CGFloat paddingFromTop = (CGRectGetHeight(self.view.frame) / 768) * 20;
-  CGFloat size = (CGRectGetHeight(self.view.frame) / 768) * 110;
-  
+  NSArray *roomViewArray = @[self.loungeView, self.kitchenView, self.bathroomView, self.bed1View, self.bed2View, self.bed3View];
   self.roomArray = [NSMutableArray new];
-  for (int i = 0; i < self.roomData.count; ++i) {
-    CGFloat roomIndex = 2 - (i % 3);
-    
-    GaugesDashboardRoomView *roomView = [[GaugesDashboardRoomView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.timeLabel.frame) - (size * (roomIndex + 1)) - (padding * roomIndex),
-                                                                                                  CGRectGetMaxY(self.timeLabel.frame) + paddingFromTop + ((i / 3) * (size + padding)),
-                                                                                                  size,
-                                                                                                  size)
+  for (int i = 0; i < self.roomData.count; ++i) {    
+    GaugesDashboardRoomView *roomView = [[GaugesDashboardRoomView alloc] initWithFrame:((UIView *)roomViewArray[i]).frame
                                                                               roomData:self.roomData[i]];
-    [self.view addSubview:roomView];
+    [self.roomView addSubview:roomView];
     [self addTapGestureRecogniserToRoomView:roomView];
     [self.roomArray addObject:roomView];
   }
@@ -173,12 +162,12 @@
   self.gauge.style.innerBackgroundColor = [UIColor gaugesDashboardBlueColor];
   self.gauge.needle.hidden = YES;
   
-  // Add a clear bevel it inset the gauge so that it does not get cropped at the edges
+  // Add a clear bevel to inset the gauge so that it does not get cropped at the edges
   self.gauge.style.bevelPrimaryColor = [UIColor clearColor];
   self.gauge.style.bevelSecondaryColor = [UIColor clearColor];
   self.gauge.style.bevelWidth = 20;
   
-  // Set up some qualitative ranges
+  // Update gauge to show value
   [self updateGauge:[((GaugesDashboardRoomInfo *)self.roomData[1]) percentageTemperature]];
   self.gauge.style.qualitativeRangeOuterPosition = 0.95;
   self.gauge.style.qualitativeRangeInnerPosition = 0.90;
@@ -223,7 +212,7 @@
   
   if ([current floatValue] >= [max floatValue]) {
     // If we have overshot our max temperature then set that displayed value to be equal to
-    // our max temperature and return ending the recursion.
+    // our max temperature and return, to end the recursion
     self.gauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:@0
                                                                       maximum:max
                                                                         color:[UIColor gaugesDashboardOrangeColor]]];

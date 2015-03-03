@@ -29,5 +29,12 @@
 @property IBOutlet UILabel *maxLabel;
 @property IBOutlet UILabel *currentValueLabel;
 @property IBOutlet UILabel *currentLabel;
+@property IBOutlet UIView *roomView;
+@property IBOutlet UIView *loungeView;
+@property IBOutlet UIView *kitchenView;
+@property IBOutlet UIView *bathroomView;
+@property IBOutlet UIView *bed1View;
+@property IBOutlet UIView *bed2View;
+@property IBOutlet UIView *bed3View;
 
 @end

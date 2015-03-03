@@ -68,7 +68,10 @@
     // Create a UIView to set the background color to be the same as that of the app background
     // color in places where we don't want to see the information view background color
     NSInteger alteranteBackgroundColorViewSize = 100;
-    UIView *alteranteBackgroundColorView = [[UIView alloc] initWithFrame:CGRectMake(390 - alteranteBackgroundColorViewSize, 59, alteranteBackgroundColorViewSize, 233 - 59)];
+    UIView *alteranteBackgroundColorView = [[UIView alloc] initWithFrame:CGRectMake(390 - alteranteBackgroundColorViewSize,
+                                                                                    59,
+                                                                                    alteranteBackgroundColorViewSize,
+                                                                                    233 - 59)];
     alteranteBackgroundColorView.backgroundColor = [UIColor gaugesDashboardBlueColor];
     [self addSubview:alteranteBackgroundColorView];
 
@@ -88,14 +91,15 @@
   self.roomNameLabel.text = [roomInfo.roomName capitalizedString];
   self.lightsStateLabel.text = [roomInfo lightsFormattedAsString];
   
-  NSMutableAttributedString *kwhLabelValueAttributedString = [[NSMutableAttributedString alloc] initWithString:[roomInfo totalPowerUsageFormattedAsString]];
+  NSMutableAttributedString *kwhLabelValueAttributedString =
+    [[NSMutableAttributedString alloc] initWithString:[roomInfo totalPowerUsageFormattedAsString]];
   NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor gaugesDashboardOrangeColor],
-                                 NSFontAttributeName: [UIFont shinobiFontOfSize:35]};
+                                          NSFontAttributeName: [UIFont shinobiFontOfSize:35]};
   [kwhLabelValueAttributedString setAttributes:attributes range:NSMakeRange(0, kwhLabelValueAttributedString.length)];
     
   NSMutableAttributedString *kwhLabelAttributedString = [[NSMutableAttributedString alloc] initWithString:@"kWh"];
     attributes = @{ NSForegroundColorAttributeName: [UIColor gaugesDashboardOrangeColor],
-                    NSFontAttributeName: [UIFont shinobiFontOfSize:24]};
+                               NSFontAttributeName: [UIFont shinobiFontOfSize:24]};
   [kwhLabelAttributedString setAttributes:attributes range:NSMakeRange(0, kwhLabelAttributedString.length)];
   [kwhLabelValueAttributedString appendAttributedString:kwhLabelAttributedString];
   self.kwhLabel.attributedText = kwhLabelValueAttributedString;

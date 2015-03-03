@@ -39,28 +39,24 @@
     
     self.backgroundColor = [UIColor gaugesDashboardGrayBlueColor];
     self.layer.borderColor = [UIColor gaugesDashboardOrangeColor].CGColor;
-    
-    BOOL isBigView = (CGRectGetHeight(frame) > 90);
-    CGFloat roomNameLabelFontSize = isBigView ? 20 : 16;
-    CGFloat temperatureLabelFontSize = isBigView ? 47 : 40;
-    
+        
     // Position and size roomNameLabel to fill top ~20% of uiview
     self.roomNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                   CGRectGetHeight(frame) * 0.08,
+                                                                   CGRectGetHeight(frame) * 0.01,
                                                                    CGRectGetWidth(frame),
-                                                                   CGRectGetHeight(frame) * 0.2)];
+                                                                   CGRectGetHeight(frame) * 0.3)];
     [self styleUILabel:self.roomNameLabel textColor:[UIColor whiteColor]
-                  font:[UIFont shinobiFontOfSize:roomNameLabelFontSize]
+                  font:[UIFont shinobiFontOfSize:16]
                   text:self.roomData.roomName];
     [self addSubview:self.roomNameLabel];
     
     // Position and size temperatureLabel to fill bottom 80% of uiview
     self.temperatureLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                      CGRectGetHeight(frame) * 0.2,
+                                                                      CGRectGetHeight(frame) * 0.3,
                                                                       CGRectGetWidth(frame),
-                                                                      CGRectGetHeight(frame) * 0.8)];
+                                                                      CGRectGetHeight(frame) * 0.7)];
     [self styleUILabel:self.temperatureLabel textColor:[UIColor gaugesDashboardOrangeColor]
-                  font:[UIFont lightShinobiFontOfSize:temperatureLabelFontSize]
+                  font:[UIFont lightShinobiFontOfSize:40]
                   text:[NSString stringWithFormat:@"%zd", self.roomData.temperature]];
     [self addSubview:self.temperatureLabel];
   }

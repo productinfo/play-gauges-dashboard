@@ -67,15 +67,52 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" id="XIT-Ls-K92">
+                                <rect key="frame" x="687" y="227" width="310" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="rmX-Fm-Wwy">
+                                        <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="u59-ZQ-ieO">
+                                        <rect key="frame" x="110" y="0.0" width="90" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="Lg8-Ks-vCz">
+                                        <rect key="frame" x="220" y="0.0" width="90" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="UsA-I0-Z0H">
+                                        <rect key="frame" x="0.0" y="110" width="90" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="Ljy-To-Ycm">
+                                        <rect key="frame" x="110" y="110" width="90" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="dSQ-nA-2fr">
+                                        <rect key="frame" x="220" y="110" width="90" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </view>
+                                </subviews>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="bathroomView" destination="Lg8-Ks-vCz" id="83V-CR-NtA"/>
+                        <outlet property="bed1View" destination="UsA-I0-Z0H" id="bhQ-0I-qM2"/>
+                        <outlet property="bed2View" destination="Ljy-To-Ycm" id="PjF-Hw-kts"/>
+                        <outlet property="bed3View" destination="dSQ-nA-2fr" id="8ys-ry-Mc2"/>
                         <outlet property="currentLabel" destination="ZBe-JS-cHp" id="fYC-aG-5lE"/>
                         <outlet property="currentValueLabel" destination="eIS-Qk-FtP" id="jwX-0D-lLv"/>
+                        <outlet property="kitchenView" destination="u59-ZQ-ieO" id="tCA-ZL-pGT"/>
+                        <outlet property="loungeView" destination="rmX-Fm-Wwy" id="gBg-5T-aYb"/>
                         <outlet property="maxLabel" destination="4ez-ga-mXk" id="RCD-bl-MiX"/>
+                        <outlet property="roomView" destination="XIT-Ls-K92" id="kih-q0-FWJ"/>
                         <outlet property="timeLabel" destination="cXL-XX-hb1" id="N4o-6k-xWT"/>
                     </connections>
                 </viewController>
@@ -85,7 +122,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BackgroundImage" width="2048" height="1536"/>
+        <image name="BackgroundImage" width="1365" height="1024"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
