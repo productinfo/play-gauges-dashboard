@@ -76,15 +76,17 @@
 - (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
   
-  self.dateFormatter = nil;
-  
-  [self.timer invalidate];
-  
-  self.informationView = nil;
-  
-  // Throw away the gauge
-  [self.gauge removeFromSuperview];
-  self.gauge = nil;
+  if ([self isMovingFromParentViewController]) {
+    self.dateFormatter = nil;
+    
+    [self.timer invalidate];
+    
+    self.informationView = nil;
+    
+    // Throw away the gauge
+    [self.gauge removeFromSuperview];
+    self.gauge = nil;
+  }
 }
 
 - (void)createDataFormatter {
