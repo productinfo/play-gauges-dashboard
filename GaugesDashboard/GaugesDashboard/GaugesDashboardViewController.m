@@ -23,20 +23,36 @@
 #import "GaugesDashboardRoomInfo.h"
 #import "GaugesDashboardInformationView.h"
 #import "GaugesDashboardRoomView.h"
+#import "GaugesDashboardLinearNeedle.h"
 #import "UIColor+GaugesDashboardColor.h"
 #import "ShinobiPlayUtils/UIFont+SPUFont.h"
 
 @interface GaugesDashboardViewController ()
 
-@property NSArray *roomData;
-
+@property (strong, nonatomic) NSArray *roomData;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (strong, nonatomic) NSTimer *timer;
 @property (strong, nonatomic) GaugesDashboardRoomView *selectedRoom;
-
-@property (strong, nonatomic) GaugesDashboardInformationView *informationView;
 @property (strong, nonatomic) NSArray *roomArray;
-@property (strong, nonatomic) SGaugeRadial *gauge;
+@property (strong, nonatomic) SGaugeRadial *insideTempGauge;
+@property (strong, nonatomic) SGaugeLinear *outsideTempGauge;
+
+@property (strong, nonatomic) IBOutlet UIView *layoutView;
+@property (strong, nonatomic) IBOutlet GaugesDashboardInformationView *informationView;
+@property (strong, nonatomic) IBOutlet UIView *insideTempGaugePlaceholder;
+@property (strong, nonatomic) IBOutlet UIView *outsideTempGaugePlaceholder;
+@property (strong, nonatomic) IBOutlet UILabel *timeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *maxLabel;
+@property (strong, nonatomic) IBOutlet UILabel *currentValueLabel;
+@property (strong, nonatomic) IBOutlet UILabel *currentLabel;
+@property (strong, nonatomic) IBOutlet UIView *loungeView;
+@property (strong, nonatomic) IBOutlet UIView *kitchenView;
+@property (strong, nonatomic) IBOutlet UIView *bathroomView;
+@property (strong, nonatomic) IBOutlet UIView *bed1View;
+@property (strong, nonatomic) IBOutlet UIView *bed2View;
+@property (strong, nonatomic) IBOutlet UIView *bed3View;
+
+- (IBAction)pickRoom:(UITapGestureRecognizer *)sender;
 
 @end
 
@@ -65,7 +81,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  if (!self.gauge) {
+  if (!self.insideTempGauge) {
     [self createDataFormatter];
     [self createTimer];
     
@@ -84,8 +100,8 @@
     self.informationView = nil;
     
     // Throw away the gauge
-    [self.gauge removeFromSuperview];
-    self.gauge = nil;
+    [self.insideTempGauge removeFromSuperview];
+    self.insideTempGauge = nil;
   }
 }
 
@@ -104,59 +120,106 @@
 }
 
 - (void)setupView {
-  self.informationView = [[GaugesDashboardInformationView alloc]initWithFrame:CGRectMake(90, 90, 390, 233)];
-  [self.view addSubview:self.informationView];
-  
   self.roomArray = @[self.loungeView, self.kitchenView, self.bathroomView, self.bed1View, self.bed2View, self.bed3View];
   for (int i = 0; i < self.roomArray.count; ++i) {
     GaugesDashboardRoomView *roomView = self.roomArray[i];
     [roomView setDataAndStyleRoomView:self.roomData[i]];
   }
   
-  [self createGauge];
+  [self createInsideTempGauge];
+  [self createOutsideTempGauge];
   
   [self updateClock];
   
   [self setRoomSelected: (self.selectedRoom) ? self.selectedRoom : self.roomArray[1]];
-  
-  [self.view bringSubviewToFront:self.maxLabel];
-  [self.view bringSubviewToFront:self.currentValueLabel];
-  [self.view bringSubviewToFront:self.currentLabel];
 }
 
-- (void)createGauge {
+- (void)createInsideTempGauge {
   // Do any additional setup after loading the view, typically from a nib.
-  self.gauge = [[SGaugeRadial alloc] initWithFrame:CGRectMake(325, 123, 225, 225) fromMinimum:@0 toMaximum:@100];
-  self.gauge.style = [SGaugeLightStyle new];
-  [self.view addSubview:self.gauge];
+  self.insideTempGauge = [[SGaugeRadial alloc] initWithFrame:self.insideTempGaugePlaceholder.bounds fromMinimum:@0 toMaximum:@100];
+  self.insideTempGauge.style = [SGaugeLightStyle new];
+  [self.insideTempGaugePlaceholder addSubview:self.insideTempGauge];
   
-  self.gauge.clipsToBounds = NO;
+  [self.insideTempGaugePlaceholder bringSubviewToFront:self.maxLabel];
+  [self.insideTempGaugePlaceholder bringSubviewToFront:self.currentValueLabel];
+  [self.insideTempGaugePlaceholder bringSubviewToFront:self.currentLabel];
+  
+  self.insideTempGauge.clipsToBounds = NO;
   
   // Set the angle to start at the bottom of the gauge and go round to 1 o'clock
-  self.gauge.arcAngleStart = - M_PI_2 * 2;
-  self.gauge.arcAngleEnd = M_PI_2 * 0.425;
+  self.insideTempGauge.arcAngleStart = - M_PI_2 * 2;
+  self.insideTempGauge.arcAngleEnd = M_PI_2 * 0.425;
   
   // Gauge style
-  self.gauge.style.borderIsFullCircle = YES;
-  self.gauge.style.showTickLabels = NO;
-  self.gauge.style.majorTickColor = [UIColor clearColor];
-  self.gauge.style.minorTickColor = [UIColor clearColor];
-  self.gauge.style.showGlassEffect = NO;
-  self.gauge.style.tickBaselineColor = [UIColor whiteColor];
-  self.gauge.style.tickBaselineWidth = 16;
-  self.gauge.style.outerBackgroundColor = [UIColor gaugesDashboardBlueColor];
-  self.gauge.style.innerBackgroundColor = [UIColor gaugesDashboardBlueColor];
-  self.gauge.needle.hidden = YES;
+  self.insideTempGauge.style.borderIsFullCircle = YES;
+  self.insideTempGauge.style.showTickLabels = NO;
+  self.insideTempGauge.style.majorTickColor = [UIColor clearColor];
+  self.insideTempGauge.style.minorTickColor = [UIColor clearColor];
+  self.insideTempGauge.style.showGlassEffect = NO;
+  self.insideTempGauge.style.tickBaselineColor = [UIColor whiteColor];
+  self.insideTempGauge.style.tickBaselineWidth = 16;
+  self.insideTempGauge.style.outerBackgroundColor = [UIColor gaugesDashboardBlueColor];
+  self.insideTempGauge.style.innerBackgroundColor = [UIColor gaugesDashboardBlueColor];
+  self.insideTempGauge.needle.hidden = YES;
   
   // Add a clear bevel to inset the gauge so that it does not get cropped at the edges
-  self.gauge.style.bevelPrimaryColor = [UIColor clearColor];
-  self.gauge.style.bevelSecondaryColor = [UIColor clearColor];
-  self.gauge.style.bevelWidth = 20;
+  self.insideTempGauge.style.bevelPrimaryColor = [UIColor clearColor];
+  self.insideTempGauge.style.bevelSecondaryColor = [UIColor clearColor];
+  self.insideTempGauge.style.bevelWidth = 20;
   
   // Update gauge to show value
   [self updateGauge:[((GaugesDashboardRoomInfo *)self.roomData[1]) percentageTemperature]];
-  self.gauge.style.qualitativeRangeOuterPosition = 0.95;
-  self.gauge.style.qualitativeRangeInnerPosition = 0.90;
+  self.insideTempGauge.style.qualitativeRangeOuterPosition = 0.95;
+  self.insideTempGauge.style.qualitativeRangeInnerPosition = 0.90;
+}
+
+- (void)createOutsideTempGauge {
+  self.outsideTempGauge = [[SGaugeLinear alloc] initWithFrame:self.outsideTempGaugePlaceholder.bounds];
+  self.outsideTempGauge.style = [SGaugeLightStyle new];
+  [self.outsideTempGaugePlaceholder addSubview:self.outsideTempGauge];
+  
+  // Set delegate
+  self.outsideTempGauge.delegate = self;
+  
+  // Set value and min/max
+  self.outsideTempGauge.minimumValue = @-10;
+  self.outsideTempGauge.maximumValue = @41;
+  self.outsideTempGauge.value = 14;
+  
+  // Set tick frequency
+  self.outsideTempGauge.axis.majorTickFrequency = 1;
+  
+  // Add qualitative ranges
+  self.outsideTempGauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:self.outsideTempGauge.minimumValue
+                                                                               maximum:@3
+                                                                                 color:[UIColor gaugesDashboardLightBlueColor]],
+                                              [SGaugeQualitativeRange rangeWithMinimum:@28
+                                                                               maximum:self.outsideTempGauge.maximumValue
+                                                                                 color:[UIColor gaugesDashboardRedColor]]];
+  
+  // Use a custom needle
+  GaugesDashboardLinearNeedle *needle = [[GaugesDashboardLinearNeedle alloc]
+                                         initWithFrame:CGRectMake(0,
+                                                                  0,
+                                                                  4,
+                                                                  self.outsideTempGauge.bounds.size.height)];
+  needle.needleValue = self.outsideTempGauge.value;
+  self.outsideTempGauge.needle = needle;
+  
+  // Gauge style
+  self.outsideTempGauge.style.outerBackgroundColor = [UIColor clearColor];
+  self.outsideTempGauge.style.innerBackgroundColor = [UIColor clearColor];
+  self.outsideTempGauge.style.showGlassEffect = NO;
+  self.outsideTempGauge.style.tickBaselineColor = [UIColor whiteColor];
+  self.outsideTempGauge.style.tickBaselineWidth = 4;
+  self.outsideTempGauge.style.tickBaselinePosition = 0.65;
+  self.outsideTempGauge.style.tickLabelOffsetFromBaseline = -14;
+  self.outsideTempGauge.style.tickLabelColor = [UIColor whiteColor];
+  self.outsideTempGauge.style.tickLabelFont = [UIFont shinobiFontOfSize:18];
+  self.outsideTempGauge.style.needleColor = [UIColor gaugesDashboardOrangeColor];
+  self.outsideTempGauge.style.needleWidth = 4;
+  self.outsideTempGauge.style.qualitativeRangeInnerPosition = self.outsideTempGauge.style.tickBaselinePosition;
+  self.outsideTempGauge.style.qualitativeRangeOuterPosition = 1;
 }
 
 - (void)updateClock {
@@ -199,16 +262,16 @@
   if ([current floatValue] >= [max floatValue]) {
     // If we have overshot our max temperature then set that displayed value to be equal to
     // our max temperature and return, to end the recursion
-    self.gauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:@0
-                                                                      maximum:max
-                                                                        color:[UIColor gaugesDashboardOrangeColor]]];
+    self.insideTempGauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:@0
+                                                                                maximum:max
+                                                                                  color:[UIColor gaugesDashboardOrangeColor]]];
     return;
   }
   
   // Increment the value shown on the gauge's qualitative indicator
-  self.gauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:@0
-                                                                    maximum:current
-                                                                      color:[UIColor gaugesDashboardOrangeColor]]];
+  self.insideTempGauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:@0
+                                                                              maximum:current
+                                                                                color:[UIColor gaugesDashboardOrangeColor]]];
   
   // Recursively increment the temperature upwards from 0.001 in increments of 4.
   NSDictionary *temperatureDictionary = @{@"current": @(current.doubleValue + 4), @"max": max};
@@ -217,7 +280,33 @@
   dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
     [self animateGaugeValue:temperatureDictionary];
   });
+  
+}
 
+#pragma mark - SGaugeDelegate methods
+
+- (void)gauge:(SGauge *)gauge alterTickMark:(UIView *)tickMark atValue:(CGFloat)value isMajorTick:(BOOL)majorTick {
+  // Set the tick mark's frame to be empty as we don't want to show tick marks
+  tickMark.frame = CGRectZero;
+}
+
+- (void)gauge:(SGauge *)gauge alterTickLabel:(UILabel *)tickLabel atValue:(CGFloat)value {
+  if (value == [gauge.maximumValue floatValue] - 1) {
+    // We're at the end of the gauge so show the axis unit rather than the value, and
+    // make it bigger
+    tickLabel.text = @"°C";
+    tickLabel.font = [tickLabel.font fontWithSize:22];
+  } else if (value != 3 && value != 28) {
+    // Hide all tick labels but the ones at 3 and 28 (either end of our qualitative ranges)
+    tickLabel.text = @"";
+  }
+  
+  [tickLabel sizeToFit];
+}
+
+- (void)gauge:(SGauge *)gauge alterNeedle:(UIView *)needle onChangeFromValue:(CGFloat)oldValue {
+  // Update the needle's value
+  ((GaugesDashboardLinearNeedle *)needle).needleValue = gauge.value;
 }
 
 @end

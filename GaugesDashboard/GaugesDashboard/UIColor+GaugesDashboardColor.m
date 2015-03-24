@@ -39,12 +39,20 @@
   return [UIColor colorWithRed:44.0f/255 green:156.0f/255 blue:190.0f/255 alpha:1];
 }
 
++ (UIColor *)gaugesDashboardLightBlueColor {
+  return [UIColor colorWithRed:97.0f/255 green:181.0f/255 blue:206.0f/255 alpha:1];
+}
+
 + (UIColor *)gaugesDashboardDarkGrayColor {
   return [UIColor colorWithRed:87.0f/255 green:87.0f/255 blue:87.0f/255 alpha:1];
 }
 
 + (UIColor *)gaugesDashboardLightGrayColor {
   return [UIColor colorWithRed:192.0f/255 green:192.0f/255 blue:192.0f/255 alpha:1];
+}
+
++ (UIColor *)gaugesDashboardRedColor {
+  return [UIColor colorWithRed:255.0f/255 green:121.0f/255 blue:100.0f/255 alpha:1];
 }
 
 @end

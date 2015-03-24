@@ -24,7 +24,7 @@
 
 @interface GaugesDashboardInformationView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame;
+//- (instancetype)initWithFrame:(CGRect)frame;
 - (void)updateInfo:(GaugesDashboardRoomInfo *)roomInfo;
 
 @end
