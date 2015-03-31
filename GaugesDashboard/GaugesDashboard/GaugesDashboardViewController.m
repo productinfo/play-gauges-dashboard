@@ -37,20 +37,20 @@
 @property (strong, nonatomic) SGaugeRadial *insideTempGauge;
 @property (strong, nonatomic) SGaugeLinear *outsideTempGauge;
 
-@property (strong, nonatomic) IBOutlet UIView *layoutView;
-@property (strong, nonatomic) IBOutlet GaugesDashboardInformationView *informationView;
-@property (strong, nonatomic) IBOutlet UIView *insideTempGaugePlaceholder;
-@property (strong, nonatomic) IBOutlet UIView *outsideTempGaugePlaceholder;
-@property (strong, nonatomic) IBOutlet UILabel *timeLabel;
-@property (strong, nonatomic) IBOutlet UILabel *maxLabel;
-@property (strong, nonatomic) IBOutlet UILabel *currentValueLabel;
-@property (strong, nonatomic) IBOutlet UILabel *currentLabel;
-@property (strong, nonatomic) IBOutlet UIView *loungeView;
-@property (strong, nonatomic) IBOutlet UIView *kitchenView;
-@property (strong, nonatomic) IBOutlet UIView *bathroomView;
-@property (strong, nonatomic) IBOutlet UIView *bed1View;
-@property (strong, nonatomic) IBOutlet UIView *bed2View;
-@property (strong, nonatomic) IBOutlet UIView *bed3View;
+@property (weak, nonatomic) IBOutlet UIView *layoutView;
+@property (weak, nonatomic) IBOutlet GaugesDashboardInformationView *informationView;
+@property (weak, nonatomic) IBOutlet UIView *insideTempGaugePlaceholder;
+@property (weak, nonatomic) IBOutlet UIView *outsideTempGaugePlaceholder;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *maxLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentValueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentLabel;
+@property (weak, nonatomic) IBOutlet UIView *loungeView;
+@property (weak, nonatomic) IBOutlet UIView *kitchenView;
+@property (weak, nonatomic) IBOutlet UIView *bathroomView;
+@property (weak, nonatomic) IBOutlet UIView *bed1View;
+@property (weak, nonatomic) IBOutlet UIView *bed2View;
+@property (weak, nonatomic) IBOutlet UIView *bed3View;
 
 - (IBAction)pickRoom:(UITapGestureRecognizer *)sender;
 
@@ -99,9 +99,12 @@
     
     self.informationView = nil;
     
-    // Throw away the gauge
+    // Throw away the gauges
     [self.insideTempGauge removeFromSuperview];
     self.insideTempGauge = nil;
+    
+    [self.outsideTempGauge removeFromSuperview];
+    self.outsideTempGauge = nil;
   }
 }
 
@@ -174,17 +177,18 @@
 }
 
 - (void)createOutsideTempGauge {
+  // Create gauge and set its default style and value
   self.outsideTempGauge = [[SGaugeLinear alloc] initWithFrame:self.outsideTempGaugePlaceholder.bounds];
   self.outsideTempGauge.style = [SGaugeLightStyle new];
+  self.outsideTempGauge.value = 14;
   [self.outsideTempGaugePlaceholder addSubview:self.outsideTempGauge];
   
   // Set delegate
   self.outsideTempGauge.delegate = self;
   
-  // Set value and min/max
+  // Set min/max
   self.outsideTempGauge.minimumValue = @-10;
   self.outsideTempGauge.maximumValue = @41;
-  self.outsideTempGauge.value = 14;
   
   // Set tick frequency
   self.outsideTempGauge.axis.majorTickFrequency = 1;
@@ -206,7 +210,7 @@
   needle.needleValue = self.outsideTempGauge.value;
   self.outsideTempGauge.needle = needle;
   
-  // Gauge style
+  // Style gauge
   self.outsideTempGauge.style.outerBackgroundColor = [UIColor clearColor];
   self.outsideTempGauge.style.innerBackgroundColor = [UIColor clearColor];
   self.outsideTempGauge.style.showGlassEffect = NO;
@@ -216,6 +220,7 @@
   self.outsideTempGauge.style.tickLabelOffsetFromBaseline = -14;
   self.outsideTempGauge.style.tickLabelColor = [UIColor whiteColor];
   self.outsideTempGauge.style.tickLabelFont = [UIFont shinobiFontOfSize:18];
+  self.outsideTempGauge.style.majorTickSize = CGSizeZero;
   self.outsideTempGauge.style.needleColor = [UIColor gaugesDashboardOrangeColor];
   self.outsideTempGauge.style.needleWidth = 4;
   self.outsideTempGauge.style.qualitativeRangeInnerPosition = self.outsideTempGauge.style.tickBaselinePosition;
@@ -248,7 +253,7 @@
 }
 
 - (void)updateGauge:(NSNumber*)percentageTemperature {
-  // Create animation effect starting from 0.001 and increaing in increments of 3 every 0.01 seconds
+  // Animate the value from 0.001 to the percentageTemperature
   NSDictionary *temperatureDictionary = @{@"current": @0.001, @"max": percentageTemperature};
   [self performSelector:@selector(animateGaugeValue:)
              withObject:temperatureDictionary
@@ -273,7 +278,7 @@
                                                                               maximum:current
                                                                                 color:[UIColor gaugesDashboardOrangeColor]]];
   
-  // Recursively increment the temperature upwards from 0.001 in increments of 4.
+  // Recursively increment the temperature upwards in increments of 4.
   NSDictionary *temperatureDictionary = @{@"current": @(current.doubleValue + 4), @"max": max};
   double delayInSeconds = 0.01;
   dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -285,18 +290,17 @@
 
 #pragma mark - SGaugeDelegate methods
 
-- (void)gauge:(SGauge *)gauge alterTickMark:(UIView *)tickMark atValue:(CGFloat)value isMajorTick:(BOOL)majorTick {
-  // Set the tick mark's frame to be empty as we don't want to show tick marks
-  tickMark.frame = CGRectZero;
-}
-
 - (void)gauge:(SGauge *)gauge alterTickLabel:(UILabel *)tickLabel atValue:(CGFloat)value {
-  if (value == [gauge.maximumValue floatValue] - 1) {
-    // We're at the end of the gauge so show the axis unit rather than the value, and
+  // Round the value before comparing against specific values. (Our tick frequency is 1 so
+  // the values we're expecting are integers)
+  NSInteger roundedValue = lroundf(value);
+  
+  if (roundedValue == [gauge.maximumValue integerValue] - 1) {
+    // We're at the end of the gauge, so show the axis unit rather than the value, and
     // make it bigger
     tickLabel.text = @"°C";
     tickLabel.font = [tickLabel.font fontWithSize:22];
-  } else if (value != 3 && value != 28) {
+  } else if (roundedValue != 3 && roundedValue != 28) {
     // Hide all tick labels but the ones at 3 and 28 (either end of our qualitative ranges)
     tickLabel.text = @"";
   }

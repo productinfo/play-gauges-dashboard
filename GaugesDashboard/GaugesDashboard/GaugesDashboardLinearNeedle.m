@@ -63,6 +63,7 @@
 - (void)setNeedleValue:(CGFloat)needleValue {
   _needleValue = needleValue;
   self.valueLabel.text = [NSString stringWithFormat:@"%.f", needleValue];
+  [self.valueLabel sizeToFit];
 }
 
 - (void)layoutSubviews {

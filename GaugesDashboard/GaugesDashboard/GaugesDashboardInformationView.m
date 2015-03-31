@@ -36,8 +36,17 @@
 
 @implementation GaugesDashboardInformationView
 
+- (instancetype)initWithFrame:(CGRect)frame {
+  self = [super initWithFrame:frame];
+  return [self commonInit];
+}
+
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
   self = [super initWithCoder:aDecoder];
+  return [self commonInit];
+}
+
+- (instancetype)commonInit {
   if (self) {
     self.backgroundColor = [UIColor gaugesDashboardDarkBlueColor];
     
@@ -74,7 +83,6 @@
                                                                                     233 - 59)];
     alternateBackgroundColorView.backgroundColor = [UIColor gaugesDashboardBlueColor];
     [self addSubview:alternateBackgroundColorView];
-
   }
   return self;
 }
