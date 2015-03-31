@@ -114,6 +114,7 @@
     self.dateFormatter = nil;
     
     [self.clockTimer invalidate];
+    [self.weatherTimer invalidate];
     
     self.informationView = nil;
     
@@ -265,8 +266,8 @@
                                 [self.minOutsideTemp floatValue] + 2);
   [self.outsideTempGauge setValue:self.currentOutsideTemp duration:0.5];
   
-  // Change the weather with probability of 1 in 5
-  if (arc4random_uniform(5) == 0) {
+  // Change the weather with probability of 1 in 3
+  if (arc4random_uniform(3) == 0) {
     CATransition *animation = [CATransition animation];
     animation.duration = 1.0;
     animation.type = kCATransitionFade;
