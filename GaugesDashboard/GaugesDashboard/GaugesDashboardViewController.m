@@ -32,11 +32,16 @@
 
 @property (strong, nonatomic) NSArray *roomData;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
-@property (strong, nonatomic) NSTimer *timer;
+@property (strong, nonatomic) NSTimer *clockTimer;
+@property (strong, nonatomic) NSTimer *weatherTimer;
 @property (strong, nonatomic) GaugesDashboardRoomView *selectedRoom;
 @property (strong, nonatomic) NSArray *roomArray;
 @property (strong, nonatomic) SGaugeRadial *insideTempGauge;
 @property (strong, nonatomic) SGaugeLinear *outsideTempGauge;
+@property (strong, nonatomic) NSArray *weatherValues;
+@property (assign, nonatomic) CGFloat currentOutsideTemp;
+@property (strong, nonatomic) NSNumber *maxOutsideTemp;
+@property (strong, nonatomic) NSNumber *minOutsideTemp;
 
 @property (weak, nonatomic) IBOutlet UIView *layoutView;
 @property (weak, nonatomic) IBOutlet GaugesDashboardInformationView *informationView;
@@ -52,6 +57,7 @@
 @property (weak, nonatomic) IBOutlet UIView *bed1View;
 @property (weak, nonatomic) IBOutlet UIView *bed2View;
 @property (weak, nonatomic) IBOutlet UIView *bed3View;
+@property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
 
 - (IBAction)pickRoom:(UITapGestureRecognizer *)sender;
 
@@ -63,7 +69,7 @@
   [super viewDidLoad];
   
   [self createDataFormatter];
-  [self createTimer];
+  [self createTimers];
   
   NSString *path = [[NSBundle mainBundle] pathForResource:@"GaugesDashboardRoomData" ofType:@"plist"];
   if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
@@ -77,6 +83,17 @@
     self.roomData = [[NSArray arrayWithArray:roomData] copy];
   }
   
+  self.weatherValues = @[ @"Sunny",
+                          @"Sunny intervals",
+                          @"Cloudy",
+                          @"Overcast",
+                          @"Light rain",
+                          @"Heavy rain"];
+  self.weatherLabel.text = self.weatherValues[0];
+  self.currentOutsideTemp = 14.2;
+  self.maxOutsideTemp = @28;
+  self.minOutsideTemp = @3;
+  
   [self setupView];
 }
 
@@ -84,7 +101,7 @@
   [super viewWillAppear:animated];
   if (!self.insideTempGauge) {
     [self createDataFormatter];
-    [self createTimer];
+    [self createTimers];
     
     [self setupView];
   }
@@ -96,7 +113,7 @@
   if ([self isMovingFromParentViewController]) {
     self.dateFormatter = nil;
     
-    [self.timer invalidate];
+    [self.clockTimer invalidate];
     
     self.informationView = nil;
     
@@ -114,13 +131,18 @@
   [self.dateFormatter setDateFormat:@"HH:mm"];
 }
 
-- (void)createTimer {
-  // Start timer
-  self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+- (void)createTimers {
+  // Start timers
+  self.clockTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                 target:self
                                               selector:@selector(updateClock)
                                               userInfo:nil
                                                repeats:YES];
+  self.weatherTimer = [NSTimer scheduledTimerWithTimeInterval:15
+                                                       target:self
+                                                     selector:@selector(updateWeather)
+                                                     userInfo:nil
+                                                      repeats:YES];
 }
 
 - (void)setupView {
@@ -181,7 +203,7 @@
   // Create gauge and set its default style and value
   self.outsideTempGauge = [[SGaugeLinear alloc] initWithFrame:self.outsideTempGaugePlaceholder.bounds];
   self.outsideTempGauge.style = [SGaugeLightStyle new];
-  self.outsideTempGauge.value = 14;
+  self.outsideTempGauge.value = self.currentOutsideTemp;
   [self.outsideTempGaugePlaceholder addSubview:self.outsideTempGauge];
   
   // Set delegate
@@ -196,9 +218,9 @@
   
   // Add qualitative ranges
   self.outsideTempGauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:self.outsideTempGauge.minimumValue
-                                                                               maximum:@3
+                                                                               maximum:self.minOutsideTemp
                                                                                  color:[UIColor gaugesDashboardLightBlueColor]],
-                                              [SGaugeQualitativeRange rangeWithMinimum:@28
+                                              [SGaugeQualitativeRange rangeWithMinimum:self.maxOutsideTemp
                                                                                maximum:self.outsideTempGauge.maximumValue
                                                                                  color:[UIColor gaugesDashboardRedColor]]];
   
@@ -218,7 +240,7 @@
   self.outsideTempGauge.style.tickBaselineColor = [UIColor whiteColor];
   self.outsideTempGauge.style.tickBaselineWidth = 4;
   self.outsideTempGauge.style.tickBaselinePosition = 0.65;
-  self.outsideTempGauge.style.tickLabelOffsetFromBaseline = -14;
+  self.outsideTempGauge.style.tickLabelOffsetFromBaseline = -13;
   self.outsideTempGauge.style.tickLabelColor = [UIColor whiteColor];
   self.outsideTempGauge.style.tickLabelFont = [UIFont shinobiFontOfSize:18];
   self.outsideTempGauge.style.majorTickSize = CGSizeZero;
@@ -231,6 +253,27 @@
 - (void)updateClock {
   NSDate *now = [NSDate date];
   self.timeLabel.text = [self.dateFormatter stringFromDate:now];
+}
+
+- (void)updateWeather {
+  // We'll just use random values for the weather in this demo app
+  
+  // Change the outside temp by a value between +/-0.2, making sure the new value doesn't
+  // pass the qualitative range indicators
+  self.currentOutsideTemp = MAX(MIN(self.outsideTempGauge.value + 0.1 * arc4random_uniform(4) - 0.2,
+                                    [self.maxOutsideTemp floatValue] - 2),
+                                [self.minOutsideTemp floatValue] + 2);
+  [self.outsideTempGauge setValue:self.currentOutsideTemp duration:0.5];
+  
+  // Change the weather with probability of 1 in 5
+  if (arc4random_uniform(5) == 0) {
+    CATransition *animation = [CATransition animation];
+    animation.duration = 1.0;
+    animation.type = kCATransitionFade;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [self.weatherLabel.layer addAnimation:animation forKey:@"changeTextTransition"];
+    self.weatherLabel.text = self.weatherValues[arc4random_uniform((uint32_t)self.weatherValues.count)];
+  }
 }
 
 - (IBAction)pickRoom:(UITapGestureRecognizer *)sender {
@@ -317,8 +360,9 @@
     // make it bigger
     tickLabel.text = @"°C";
     tickLabel.font = [tickLabel.font fontWithSize:22];
-  } else if (roundedValue != 3 && roundedValue != 28) {
-    // Hide all tick labels but the ones at 3 and 28 (either end of our qualitative ranges)
+  } else if (roundedValue != [self.minOutsideTemp integerValue] &&
+             roundedValue != [self.maxOutsideTemp integerValue]) {
+    // Hide all tick labels but the ones at either end of our qualitative ranges
     tickLabel.text = @"";
   }
   

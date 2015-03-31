@@ -42,7 +42,7 @@
     
     // Add a label showing the temperature
     self.valueLabel = [UILabel new];
-    self.valueLabel.text = @"00";
+    self.valueLabel.text = @"00.0";
     self.valueLabel.font = [UIFont boldShinobiFontOfSize:18];
     self.valueLabel.textColor = [UIColor gaugesDashboardOrangeColor];
     [self.valueLabel sizeToFit];
@@ -62,7 +62,13 @@
 
 - (void)setNeedleValue:(CGFloat)needleValue {
   _needleValue = needleValue;
-  self.valueLabel.text = [NSString stringWithFormat:@"%.f", needleValue];
+  
+  CATransition *animation = [CATransition animation];
+  animation.duration = 0.5;
+  animation.type = kCATransitionFade;
+  animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+  [self.valueLabel.layer addAnimation:animation forKey:@"changeTextTransition"];
+  self.valueLabel.text = [NSString stringWithFormat:@"%.1f", needleValue];
   [self.valueLabel sizeToFit];
 }
 
