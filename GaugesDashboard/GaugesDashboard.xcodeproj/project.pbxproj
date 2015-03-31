@@ -13,6 +13,7 @@
 		542D05321A9DF3C7003F3769 /* GaugesDashboardRoomData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5425962F1A9CC213000F1D73 /* GaugesDashboardRoomData.plist */; };
 		542D05351A9E12C3003F3769 /* GaugesDashboardRoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 542D05341A9E12C3003F3769 /* GaugesDashboardRoomView.m */; };
 		542D05381A9E1402003F3769 /* GaugesDashboardRoomInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 542D05371A9E1402003F3769 /* GaugesDashboardRoomInfo.m */; };
+		680693D11AC0623300D8C2EA /* GaugesDashboardLinearNeedle.m in Sources */ = {isa = PBXBuildFile; fileRef = 680693D01AC0623300D8C2EA /* GaugesDashboardLinearNeedle.m */; };
 		68171BE119ADDBC5000AFEEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68171BE019ADDBC5000AFEEB /* Foundation.framework */; };
 		68171BE319ADDBC5000AFEEB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68171BE219ADDBC5000AFEEB /* CoreGraphics.framework */; };
 		68171BE519ADDBC5000AFEEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68171BE419ADDBC5000AFEEB /* UIKit.framework */; };
@@ -73,6 +74,8 @@
 		542D05341A9E12C3003F3769 /* GaugesDashboardRoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaugesDashboardRoomView.m; sourceTree = "<group>"; };
 		542D05361A9E1402003F3769 /* GaugesDashboardRoomInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugesDashboardRoomInfo.h; sourceTree = "<group>"; };
 		542D05371A9E1402003F3769 /* GaugesDashboardRoomInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaugesDashboardRoomInfo.m; sourceTree = "<group>"; };
+		680693CF1AC0623300D8C2EA /* GaugesDashboardLinearNeedle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugesDashboardLinearNeedle.h; sourceTree = "<group>"; };
+		680693D01AC0623300D8C2EA /* GaugesDashboardLinearNeedle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaugesDashboardLinearNeedle.m; sourceTree = "<group>"; };
 		68171BDD19ADDBC5000AFEEB /* GaugesDashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GaugesDashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68171BE019ADDBC5000AFEEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		68171BE219ADDBC5000AFEEB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -128,6 +131,8 @@
 				542D05341A9E12C3003F3769 /* GaugesDashboardRoomView.m */,
 				542596311A9CC2D7000F1D73 /* GaugesDashboardInformationView.h */,
 				542596321A9CC2D7000F1D73 /* GaugesDashboardInformationView.m */,
+				680693CF1AC0623300D8C2EA /* GaugesDashboardLinearNeedle.h */,
+				680693D01AC0623300D8C2EA /* GaugesDashboardLinearNeedle.m */,
 			);
 			name = CustomViews;
 			sourceTree = "<group>";
@@ -339,6 +344,7 @@
 				68171BF119ADDBC5000AFEEB /* GaugesDashboardAppDelegate.m in Sources */,
 				542D052D1A9DED29003F3769 /* UIColor+GaugesDashboardColor.m in Sources */,
 				68171BED19ADDBC5000AFEEB /* main.m in Sources */,
+				680693D11AC0623300D8C2EA /* GaugesDashboardLinearNeedle.m in Sources */,
 				542D05381A9E1402003F3769 /* GaugesDashboardRoomInfo.m in Sources */,
 				542D05351A9E12C3003F3769 /* GaugesDashboardRoomView.m in Sources */,
 				68171BF719ADDBC5000AFEEB /* GaugesDashboardViewController.m in Sources */,

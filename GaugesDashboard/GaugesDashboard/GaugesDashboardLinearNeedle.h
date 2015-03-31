@@ -1,10 +1,10 @@
 //
-//  GaugesDashboardColor.h
+//  GaugesDashboardLinearNeedle.h
 //  GaugesDashboard
 //
-//  Created by Daniel Allsop on 25/02/2015.
+//  Created by Alison Clarke on 23/03/2015.
 //
-//  Copyright 2014 Scott Logic
+//  Copyright 2015 Scott Logic
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -19,17 +19,11 @@
 //  limitations under the License.
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
+#import <ShinobiGauges/ShinobiGauges.h>
 
-@interface UIColor (GaugesDashboardColor)
+@interface GaugesDashboardLinearNeedle : UIView <SGaugeNeedle>
 
-+ (UIColor *)gaugesDashboardGrayBlueColor;
-+ (UIColor *)gaugesDashboardOrangeColor;
-+ (UIColor *)gaugesDashboardDarkBlueColor;
-+ (UIColor *)gaugesDashboardBlueColor;
-+ (UIColor *)gaugesDashboardLightBlueColor;
-+ (UIColor *)gaugesDashboardDarkGrayColor;
-+ (UIColor *)gaugesDashboardLightGrayColor;
-+ (UIColor *)gaugesDashboardRedColor;
+@property (assign, nonatomic) CGFloat needleValue;
 
 @end
