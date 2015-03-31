@@ -26,6 +26,7 @@
 #import "GaugesDashboardLinearNeedle.h"
 #import "UIColor+GaugesDashboardColor.h"
 #import "ShinobiPlayUtils/UIFont+SPUFont.h"
+#import <sys/utsname.h>
 
 @interface GaugesDashboardViewController ()
 
@@ -253,11 +254,18 @@
 }
 
 - (void)updateGauge:(NSNumber*)percentageTemperature {
-  // Animate the value from 0.001 to the percentageTemperature
-  NSDictionary *temperatureDictionary = @{@"current": @0.001, @"max": percentageTemperature};
-  [self performSelector:@selector(animateGaugeValue:)
-             withObject:temperatureDictionary
-             afterDelay:0];
+  // Check whether the device is OK to animate the qualitative range change
+  if ([self deviceCanCopeWithQualitativeRangeAnimations]) {
+    // Animate the value from 0.001 to the percentageTemperature
+    NSDictionary *temperatureDictionary = @{@"current": @0.001, @"max": percentageTemperature};
+    [self performSelector:@selector(animateGaugeValue:)
+               withObject:temperatureDictionary
+               afterDelay:0];
+  } else {
+    self.insideTempGauge.qualitativeRanges = @[[SGaugeQualitativeRange rangeWithMinimum:@0
+                                                                                maximum:percentageTemperature
+                                                                                  color:[UIColor gaugesDashboardOrangeColor]]];
+  }
 }
 
 - (void)animateGaugeValue:(NSDictionary *)state {
@@ -285,7 +293,16 @@
   dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
     [self animateGaugeValue:temperatureDictionary];
   });
+}
+
+- (BOOL)deviceCanCopeWithQualitativeRangeAnimations {
+  struct utsname systemInfo;
+  uname(&systemInfo);
   
+  NSString *platform = [NSString stringWithCString:systemInfo.machine
+                                          encoding:NSUTF8StringEncoding];
+  
+  return ![platform hasPrefix:@"iPad3"];
 }
 
 #pragma mark - SGaugeDelegate methods
