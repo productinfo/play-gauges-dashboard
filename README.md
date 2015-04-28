@@ -47,4 +47,4 @@ We'd love to see your contributions to this project - please go ahead and fork i
 License
 -------
 
-The [Apache License, Version 2.0](license.txt) applies to everything in this repository, and will apply to any user contributions.
+The [Apache License, Version 2.0](LICENSE) applies to everything in this repository, and will apply to any user contributions.
