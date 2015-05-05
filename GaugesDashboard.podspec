@@ -6,7 +6,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = "GaugesDashboard"
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = "A gauges dashboard demo"
   s.description      = <<-DESC
                        A gauges dashboard for the featured gallery
