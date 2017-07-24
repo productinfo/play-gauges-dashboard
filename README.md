@@ -35,9 +35,9 @@ In order to build this project you'll need a copy of **shinobigauges**. If you d
 
 If you've used the installer to install **shinobigauges**, the project should just work. If you haven't, then once you've downloaded and unzipped **shinobigauges**, open up the project in Xcode, and drag ShinobiGauges.framework from the finder into Xcode's 'frameworks' group, and Xcode will sort out all the header and linker paths for you.
 
-If you're using the trial version you'll need to add your license key. To do so, open up GaugesDashboardViewController.m and add the following line inside `viewDidLoad`:
+If you're using the trial version you'll need to add your trial key. To do so, open up GaugesDashboardViewController.m and add the following line inside `viewDidLoad`:
 
-    [ShinobiGauges setLicenseKey:@"your license key"];
+    [ShinobiGauges setTrialKey:@"your trial key"];
 
 Contributing
 ------------
