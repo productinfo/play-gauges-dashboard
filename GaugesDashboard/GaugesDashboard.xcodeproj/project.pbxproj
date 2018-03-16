@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		542596331A9CC2D7000F1D73 /* GaugesDashboardInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 542596321A9CC2D7000F1D73 /* GaugesDashboardInformationView.m */; };
-		542D052A1A9DE916003F3769 /* ShinobiGauges.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542D05291A9DE916003F3769 /* ShinobiGauges.framework */; };
 		542D052D1A9DED29003F3769 /* UIColor+GaugesDashboardColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 542D052C1A9DED29003F3769 /* UIColor+GaugesDashboardColor.m */; };
 		542D05321A9DF3C7003F3769 /* GaugesDashboardRoomData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5425962F1A9CC213000F1D73 /* GaugesDashboardRoomData.plist */; };
 		542D05351A9E12C3003F3769 /* GaugesDashboardRoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 542D05341A9E12C3003F3769 /* GaugesDashboardRoomView.m */; };
@@ -37,6 +36,7 @@
 		68FCB4CB1A6E595300A48C86 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68FCB4BF1A6E595300A48C86 /* Roboto-Regular.ttf */; };
 		68FCB4CC1A6E595300A48C86 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68FCB4C01A6E595300A48C86 /* Roboto-Thin.ttf */; };
 		68FCB4CD1A6E595300A48C86 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68FCB4C11A6E595300A48C86 /* Roboto-ThinItalic.ttf */; };
+		B2329302205ABE0F0058E64C /* ShinobiGauges.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2329301205ABE0F0058E64C /* ShinobiGauges.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +67,6 @@
 		5425962F1A9CC213000F1D73 /* GaugesDashboardRoomData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GaugesDashboardRoomData.plist; sourceTree = "<group>"; };
 		542596311A9CC2D7000F1D73 /* GaugesDashboardInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugesDashboardInformationView.h; sourceTree = "<group>"; };
 		542596321A9CC2D7000F1D73 /* GaugesDashboardInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaugesDashboardInformationView.m; sourceTree = "<group>"; };
-		542D05291A9DE916003F3769 /* ShinobiGauges.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShinobiGauges.framework; path = ../../../../../Library/ShinobiGauges/ShinobiGauges.framework; sourceTree = "<group>"; };
 		542D052B1A9DED29003F3769 /* UIColor+GaugesDashboardColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+GaugesDashboardColor.h"; sourceTree = "<group>"; };
 		542D052C1A9DED29003F3769 /* UIColor+GaugesDashboardColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GaugesDashboardColor.m"; sourceTree = "<group>"; };
 		542D05331A9E12C3003F3769 /* GaugesDashboardRoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugesDashboardRoomView.h; sourceTree = "<group>"; };
@@ -105,6 +104,7 @@
 		68FCB4BF1A6E595300A48C86 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		68FCB4C01A6E595300A48C86 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		68FCB4C11A6E595300A48C86 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		B2329301205ABE0F0058E64C /* ShinobiGauges.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShinobiGauges.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +117,7 @@
 				68171BE319ADDBC5000AFEEB /* CoreGraphics.framework in Frameworks */,
 				68171BE519ADDBC5000AFEEB /* UIKit.framework in Frameworks */,
 				68171BE119ADDBC5000AFEEB /* Foundation.framework in Frameworks */,
-				542D052A1A9DE916003F3769 /* ShinobiGauges.framework in Frameworks */,
+				B2329302205ABE0F0058E64C /* ShinobiGauges.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,7 +168,7 @@
 		68171BDF19ADDBC5000AFEEB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				542D05291A9DE916003F3769 /* ShinobiGauges.framework */,
+				B2329301205ABE0F0058E64C /* ShinobiGauges.framework */,
 				68171C1519ADDC04000AFEEB /* QuartzCore.framework */,
 				68171BE019ADDBC5000AFEEB /* Foundation.framework */,
 				68171BE219ADDBC5000AFEEB /* CoreGraphics.framework */,
@@ -265,8 +265,13 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = GaugesDashboard;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Alison Clarke";
+				TargetAttributes = {
+					68171BDC19ADDBC5000AFEEB = {
+						DevelopmentTeam = XJ74287KY8;
+					};
+				};
 			};
 			buildConfigurationList = 68171BD819ADDBC5000AFEEB /* Build configuration list for PBXProject "GaugesDashboard" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -389,18 +394,30 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -413,7 +430,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -428,25 +445,36 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -458,15 +486,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = XJ74287KY8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(LOCAL_LIBRARY_DIR)/ShinobiGauges",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GaugesDashboard/GaugesDashboard-Prefix.pch";
 				INFOPLIST_FILE = "GaugesDashboard/GaugesDashboard-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.scottlogic.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = GaugesDashboard;
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -476,15 +507,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = XJ74287KY8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(LOCAL_LIBRARY_DIR)/ShinobiGauges",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GaugesDashboard/GaugesDashboard-Prefix.pch";
 				INFOPLIST_FILE = "GaugesDashboard/GaugesDashboard-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.scottlogic.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = GaugesDashboard;
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
