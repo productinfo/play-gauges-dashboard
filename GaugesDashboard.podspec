@@ -6,20 +6,20 @@
 #
 Pod::Spec.new do |s|
   s.name             = "GaugesDashboard"
-  s.version          = '1.0.1'
+  s.version          = '1.1.0'
   s.summary          = "A gauges dashboard demo"
   s.description      = <<-DESC
                        A gauges dashboard for the featured gallery
                        DESC
-  s.homepage         = "http://www.shinobicontrols.com"
+  s.homepage         = "https://www.shinobicontrols.com"
   s.license          = 'Apache License, Version 2.0'
   s.author           = { "Alison Clarke" => "aclarke@scottlogic.co.uk" }
-  s.source           = { :git => "https://github.com/ShinobiControls/play-gauges-dashboard.git", 
+  s.source           = { :git => "https://github.com/ShinobiControls/play-gauges-dashboard.git",
                          :tag => s.version.to_s,
-                         :submodules => true 
+                         :submodules => true
                        }
   s.social_media_url = 'https://twitter.com/shinobicontrols'
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
   s.source_files = 'GaugesDashboard/GaugesDashboard/**/*.{h,m}'
   s.dependency 'ShinobiPlayUtils'
